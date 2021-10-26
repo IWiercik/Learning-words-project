@@ -1,13 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 import logo from 'assets/images/logo.png';
+import { Link } from 'react-router-dom';
 const Navbar = styled.nav`
   width: 300px;
   height: 100vh;
   background: rgb(0, 0, 0, 0.1);
   border-right: 1px solid rgb(255, 255, 255, 0.3);
   position: absolute;
-  img{
+  img {
     width: 100px;
     height: 100px;
     align-self: center;
@@ -17,19 +18,24 @@ const Navbar = styled.nav`
 const List = styled.ul`
   display: flex;
   flex-direction: column;
-  text-align: right;
-  padding-right: 20px;
+  text-align: center;
+  /* padding-right: 20px; */
+  row-gap: 20px;
 `;
 const ListItem = styled.li``;
 const Navigation = () => (
   <Navbar>
     <List>
-      <img src={logo} alt={"logo"} />
+      <img src={logo} alt={'logo'} />
       <ListItem>
-        <h1>Registration</h1>
+        <Link to="/">
+          <h1>Registration</h1>
+        </Link>
       </ListItem>
       <ListItem>
-        <h1>Login</h1>
+        <Link to="/login">
+          <h1>Login</h1>
+        </Link>
       </ListItem>
     </List>
   </Navbar>
