@@ -21,5 +21,8 @@ h2{
 a, button{
     font-family: 'Barlow Condensed', sans-serif;
 }
-
+a{
+    text-decoration: none;
+    color: white;
+}
 `;
