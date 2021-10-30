@@ -17,12 +17,31 @@ const Wrapper = styled.form`
   }
 `;
 
-const Form = ({ title, submit }) => {
+const Form = ({ title, submit, value: formValues, updateValuesMethod, formSubmitted, dataAuth }) => {
+  const inputChangeHandler = (e) => {
+    updateValuesMethod({ ...formValues, [e.target.name]: e.target.value });
+  };
   return (
-    <Wrapper>
+    <Wrapper onSubmit={formSubmitted}>
       <Title>{title}</Title>
-      <Input></Input>
-      <Input></Input>
+      <Input
+        required={true}
+        name="login"
+        placeholder="Your-Email"
+        type="text"
+        value={formValues.login}
+        onChange={inputChangeHandler}
+        isValid={dataAuth.login}
+      ></Input>
+      <Input
+        required={true}
+        name="password"
+        placeholder="Password"
+        type="password"
+        value={formValues.password}
+        onChange={inputChangeHandler}
+        isValid={dataAuth.password}
+      ></Input>
       <Button>{submit}</Button>
     </Wrapper>
   );
