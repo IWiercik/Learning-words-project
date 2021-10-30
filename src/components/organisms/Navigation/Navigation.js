@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import logo from 'assets/images/logo.png';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 const Navbar = styled.nav`
   width: 300px;
   height: 100vh;
@@ -22,20 +22,27 @@ const List = styled.ul`
   /* padding-right: 20px; */
   row-gap: 20px;
 `;
-const ListItem = styled.li``;
+const ListItem = styled(NavLink)`
+  h1 {
+    display: inline;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 5px;
+  }
+  &.active-link h1 {
+    border-right: 2px solid white;
+    border-left: 2px solid white;
+  }
+`;
 const Navigation = () => (
   <Navbar>
     <List>
       <img src={logo} alt={'logo'} />
-      <ListItem>
-        <Link to="/">
-          <h1>Registration</h1>
-        </Link>
+      <ListItem activeClassName="active-link" exact to="/">
+        <h1>Registration</h1>
       </ListItem>
-      <ListItem>
-        <Link to="/login">
-          <h1>Login</h1>
-        </Link>
+      <ListItem activeClassName="active-link" to="/login">
+        <h1>Login</h1>
       </ListItem>
     </List>
   </Navbar>
