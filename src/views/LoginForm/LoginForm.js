@@ -1,11 +1,13 @@
 import Form from 'components/organisms/Form.js/Form';
 import { useState } from 'react';
+import { signInUser } from 'firebase/firebase';
 const LoginForm = () => {
   const initialState = { login: '', password: '' };
   const [loginFormValues, setLoginFormValues] = useState(initialState);
   const [authState, setAuthState] = useState({ login: 'Default', password: 'Default' });
   const loginFormValidator = (e) => {
     e.preventDefault();
+    signInUser(loginFormValues.login, loginFormValues.password);
   };
   return (
     <Form
