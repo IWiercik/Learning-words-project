@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import logo from 'assets/images/logo.png';
 import { NavLink } from 'react-router-dom';
+
 const Navbar = styled.nav`
   width: 300px;
   height: 100vh;
@@ -38,10 +39,10 @@ const Navigation = () => (
   <Navbar>
     <List>
       <img src={logo} alt={'logo'} />
-      <ListItem activeClassName="active-link" exact to="/">
+      <ListItem activeClassName="active-link" exact to="/register">
         <h1>Registration</h1>
       </ListItem>
-      <ListItem activeClassName="active-link" to="/login">
+      <ListItem activeClassName="active-link" exact to="/login">
         <h1>Login</h1>
       </ListItem>
     </List>
