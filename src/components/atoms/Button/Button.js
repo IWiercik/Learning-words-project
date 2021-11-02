@@ -1,18 +1,16 @@
 import styled from 'styled-components';
 
 export const Button = styled.button`
-  padding-left: 25px;
-  padding-right: 25px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  background: rgb(255, 255, 255, 0.3);
-  color: white;
-  border: none;
-  border-radius: 15px;
+  border-radius: 10px;
+  padding: 9px 20px;
+  border: 1px solid white;
+  box-shadow: 8px 8px 24px 0px rgba(0, 0, 0, 1);
+  background: rgba(0, 0, 0, 0.397);
+  font-size: ${({ theme }) => theme.fontSize.m};
   cursor: pointer;
-  transition: 1s all;
+  margin-top: 5px;
+  transition: 0.5s all;
   &:hover {
-    background: white;
-    color: black;
+    transform: scale(1.15);
   }
 `;
