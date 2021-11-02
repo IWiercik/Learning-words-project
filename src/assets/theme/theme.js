@@ -10,8 +10,8 @@ export const theme = {
   },
   fontSize: {
     xl: '24px',
-    l: '19px',
-    m: '14px',
-    s: '11px',
+    l: '20px',
+    m: '16px',
+    s: '14px',
   },
 };
