@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Title } from 'components/atoms/Title/Title';
-import { Input } from 'components/atoms/Input/Input';
+import { Input } from 'components/atoms/AuthInput/AuthInput';
 import { Button } from 'components/atoms/Button/Button';
 const Wrapper = styled.form`
   width: 300px;
