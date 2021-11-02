@@ -1,5 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 export const globalStyle = createGlobalStyle`
+//Reseting
 *,
 *::before,
 *::after {
@@ -8,21 +9,32 @@ export const globalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
 }
+a{
+    text-decoration: none;
+}
+//Colors 
 body{
-    font-family: 'Barlow Condensed', sans-serif;
     color: white;
 }
+a,button,input{
+    color: white;
+}
+//Font Sizes
 h1{
     font-size: ${({ theme }) => theme.fontSize.xl};
 }
 h2{
     font-size: ${({ theme }) => theme.fontSize.l};
 }
-a, button{
-    font-family: 'Barlow Condensed', sans-serif;
+p,label{
+    font-size: ${({ theme }) => theme.fontSize.m};
 }
-a{
-    text-decoration: none;
-    color: white;
+//Fonts
+a,button{
+    font-family: 'Oswald', sans-serif;
 }
+label{
+    font-family: 'Roboto Condensed', sans-serif; 
+}
+
 `;
