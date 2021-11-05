@@ -20,10 +20,21 @@ const Box = styled.div`
     padding: 5px;
   }
 `;
-const FieldWithInput = ({ textContent }) => (
-  <Box>
-    <label htmlFor={textContent}>{textContent}</label>
-    <input type="text" id={textContent}></input>
-  </Box>
-);
+const FieldWithInput = ({ textContent, words, updateValuesMethod, name }) => {
+  const inputChangeHandler = (e) => {
+    updateValuesMethod({ ...words, [e.target.name]: e.target.value });
+  };
+  return (
+    <Box>
+      <label htmlFor={textContent}>{textContent}</label>
+      <input
+        value={name === 'engWord' ? words.engWord : words.plWord}
+        name={name}
+        onChange={inputChangeHandler}
+        type="text"
+        id={textContent}
+      ></input>
+    </Box>
+  );
+};
 export default FieldWithInput;
