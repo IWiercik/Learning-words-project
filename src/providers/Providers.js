@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import { onAuthStateChanged } from '@firebase/auth';
 import { auth } from 'firebase/firebase';
-export const userContext = React.createContext({
+export const appContext = React.createContext({
   currentUser: null,
+  wordsData: null,
   setCurrentUser: () => {},
+  setWordsData: () => {},
 });
 
-const UserProvider = ({ children }) => {
+const Providers = ({ children }) => {
+  //User Context
   const [currentUser, setCurrentUser] = useState(null);
   //Firebase Authorization Function
   onAuthStateChanged(auth, (user) => {
@@ -16,7 +19,7 @@ const UserProvider = ({ children }) => {
       setCurrentUser(null);
     }
   });
-  const { Provider } = userContext;
+  const { Provider } = appContext;
   return (
     <Provider
       value={{
@@ -28,4 +31,4 @@ const UserProvider = ({ children }) => {
     </Provider>
   );
 };
-export default UserProvider;
+export default Providers;
