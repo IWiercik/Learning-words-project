@@ -1,23 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
 const Box = styled.div`
-  display: grid;
+  display: flex;
   text-align: left;
   grid-template-columns: 45% auto;
   align-items: center;
+  justify-content: space-between;
+  column-gap: 10px;
   label {
-    margin-left: 20px;
     font-size: 19px;
   }
   input {
-    justify-self: right;
-    background: rgba(255, 255, 255, 0.315);
-    outline: none;
-    border: 1px solid black;
-    color: white;
-    border-radius: 5px;
-    margin-right: 20px;
-    padding: 5px;
+    border-radius: 10px;
+    padding: 9px 15px;
+    border: 1px solid white;
+    box-shadow: 8px 8px 24px 0px rgba(0, 0, 0, 1);
+    background: rgba(0, 0, 0, 0.397);
   }
 `;
 const FieldWithInput = ({ textContent, words, updateValuesMethod, name }) => {
@@ -33,6 +31,7 @@ const FieldWithInput = ({ textContent, words, updateValuesMethod, name }) => {
         onChange={inputChangeHandler}
         type="text"
         id={textContent}
+        placeholder="Place for word"
       ></input>
     </Box>
   );
