@@ -13,7 +13,7 @@ const CenteredContent = styled.div`
   position: relative;
   display: grid;
   box-shadow: 2px 2px 6px -1px rgb(0 0 0);
-  padding: 25px 15px;
+  padding: 25px 25px;
 `;
 
 const MainTemplate = () => {
