@@ -3,7 +3,7 @@ import { Title } from 'components/atoms/Title/Title';
 import FieldWithInput from 'components/molecules/FieldWithInput/FieldWithInput';
 import styled from 'styled-components';
 import { Button } from 'components/atoms/Button/Button';
-import { AddData } from 'firebase/firebase';
+import { AddData } from 'configFirebase/firebase';
 import { appContext } from 'providers/Providers';
 import { useState } from 'react';
 const Wrapper = styled.div`

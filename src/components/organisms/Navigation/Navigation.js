@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import logo from 'assets/images/logo.png';
 import { NavLink } from 'react-router-dom';
 import { signOut } from '@firebase/auth';
-import { auth } from 'firebase/firebase';
+import { auth } from 'configFirebase/firebase';
 
 const Navbar = styled.nav`
   width: 300px;
