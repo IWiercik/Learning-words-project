@@ -2,7 +2,7 @@ import { initializeApp } from 'firebase/app';
 import firebaseConfig from './firebaseConfig';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, getAuth } from '@firebase/auth';
 import { getFirestore } from 'firebase/firestore';
-import { doc, getDoc, setDoc, updateDoc, arrayUnion, onSnapshot } from '@firebase/firestore';
+import { doc, getDoc, setDoc, updateDoc, arrayUnion } from '@firebase/firestore';
 
 const app = initializeApp(firebaseConfig);
 //AUTH, REGISTRATION + SIGN IN
