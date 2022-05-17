@@ -36,5 +36,11 @@ a,button{
 label{
     font-family: 'Roboto Condensed', sans-serif; 
 }
-
+// Alerts
+.sweetAlertInput{
+    color: black ;
+   padding-top:  5px;
+   padding-bottom: 5px ;
+   font-size:20px ;
+}
 `;

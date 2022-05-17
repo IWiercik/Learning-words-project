@@ -6,7 +6,7 @@ import { Wrapper } from './Root.style';
 import { appContext } from 'providers/Providers';
 import PreAuth from 'layout/PreAuth/PreAuth';
 import MainTemplate from 'layout/MainTemplate/MainTemplate';
-import { getData } from 'firebase/firebase';
+import { getData } from 'configFirebase/firebase';
 import { useDispatch } from 'react-redux';
 import { downloadData } from 'store';
 // import { updateData } from 'store';

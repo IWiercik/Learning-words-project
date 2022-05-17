@@ -1,6 +1,6 @@
 import Form from 'components/organisms/Form.js/Form';
 import { useState } from 'react';
-import { createUser } from 'firebase/firebase';
+import { createUser } from 'configFirebase/firebase';
 //Firebase
 const RegistrationForm = () => {
   //Registration Values

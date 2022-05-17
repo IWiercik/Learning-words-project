@@ -4,6 +4,8 @@ import { Text } from 'components/atoms/Text/Text';
 import styled from 'styled-components';
 import { Button } from 'components/atoms/Button/Button';
 import { useSelector } from 'react-redux';
+import { alertForHints } from 'helpers/sweetAlert';
+
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -40,21 +42,27 @@ const LearningMode = () => {
   const engWords = useSelector((state) => state.engWords);
   const plWords = useSelector((state) => state.plWords);
   const answer = 'Waiting';
+  const actualWordToTranslate =
+    engWords && plWords ? engWords[Math.floor(Math.random() * engWords.length)] : 'Add your word!';
   return (
     <Wrapper answer={answer}>
       <Title>Learning Mode</Title>
       <Text>
         English Word:
-        <strong>
-          {engWords && plWords ? engWords[Math.floor(Math.random() * engWords.length)] : ' Add your word!'}
-        </strong>
+        <strong> {actualWordToTranslate}</strong>
       </Text>
       <div>
         <input placeholder="Your translation"></input>
       </div>
       <h4>Waiting for translation...</h4>
       <ButtonsBox>
-        <Button>Hint !</Button>
+        <Button
+          onClick={() => {
+            alertForHints(actualWordToTranslate);
+          }}
+        >
+          Hint !
+        </Button>
         <Button>Check !</Button>
         <Button>Swap !</Button>
       </ButtonsBox>
