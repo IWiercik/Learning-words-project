@@ -1,7 +1,7 @@
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 export const alertForHints = (wordToTranslate) => {
-  const maxLettersForHint = wordToTranslate.length / 2;
+  const maxLettersForHint = Math.round(wordToTranslate.length / 2);
   const MySwal = withReactContent(Swal);
   MySwal.fire({
     icon: 'question',
