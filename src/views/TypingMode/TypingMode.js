@@ -23,18 +23,8 @@ const TypingMode = () => {
   return (
     <Wrapper>
       <Title>Typing Mode</Title>
-      <FieldWithInput
-        updateValuesMethod={setWords}
-        name="engWord"
-        words={words}
-        textContent="English Word:"
-      ></FieldWithInput>
-      <FieldWithInput
-        updateValuesMethod={setWords}
-        name="plWord"
-        words={words}
-        textContent="Polish Word:"
-      ></FieldWithInput>
+      <FieldWithInput updateValuesMethod={setWords} name="engWord" words={words} textContent="English Word:"></FieldWithInput>
+      <FieldWithInput updateValuesMethod={setWords} name="plWord" words={words} textContent="Polish Word:"></FieldWithInput>
       <ButtonContainer>
         <Button
           onClick={() => {
