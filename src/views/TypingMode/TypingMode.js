@@ -19,7 +19,6 @@ const TypingMode = () => {
   const [words, setWords] = useState(initialState);
   const ctx = useContext(appContext);
   // const userUID = ctx.currentUser.uid;
-  const userEmail = ctx.currentUser.email;
   return (
     <Wrapper>
       <Title>Typing Mode</Title>
@@ -28,6 +27,7 @@ const TypingMode = () => {
       <ButtonContainer>
         <Button
           onClick={() => {
+            const userEmail = ctx.currentUser.email;
             AddData(userEmail, words);
             console.log('Wysłano!');
             setWords(initialState);
