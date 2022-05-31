@@ -3,9 +3,7 @@ import { onAuthStateChanged } from '@firebase/auth';
 import { auth } from 'configFirebase/firebase';
 export const appContext = React.createContext({
   currentUser: null,
-  wordsData: null,
   setCurrentUser: () => {},
-  setWordsData: () => {},
 });
 
 const Providers = ({ children }) => {
