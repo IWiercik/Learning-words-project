@@ -9,8 +9,8 @@ import { ButtonsBox, Wrapper } from './LearningMode.style';
 
 const LearningMode = () => {
   //Data with words
-  const engWords = useSelector((state) => state.engWords);
-  const plWords = useSelector((state) => state.plWords);
+  const engWords = useSelector((state) => state.wordsDataSlice.engWords);
+  const plWords = useSelector((state) => state.wordsDataSlice.plWords);
   const actualWordToTranslate = engWords && plWords ? engWords[Math.floor(Math.random() * engWords.length)] : 'Add your word!';
   return (
     <Wrapper answer="Waiting">
