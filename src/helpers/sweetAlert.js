@@ -1,5 +1,6 @@
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
+import 'helpers/sweetAlert.css';
 export const alertForHints = (wordToTranslate) => {
   const maxLettersForHint = Math.round(wordToTranslate.length / 2);
   const MySwal = withReactContent(Swal);
@@ -19,12 +20,24 @@ export const alertForHints = (wordToTranslate) => {
     },
   }).then((result) => {
     if (result.isConfirmed) {
-      console.log(typeof wordToTranslate);
-      console.log(result.value);
       Swal.fire({
         title: `Your hint:`,
         text: `${wordToTranslate.substring(0, result.value)}...`,
       });
     }
+  });
+};
+
+export const alertForAddingWordsToDataBase = () => {
+  Swal.fire({
+    icon: 'success',
+    title: 'Sent!',
+  });
+};
+
+export const alertForEmptyInput = () => {
+  Swal.fire({
+    icon: 'warning',
+    title: 'Fill in the fields!',
   });
 };
