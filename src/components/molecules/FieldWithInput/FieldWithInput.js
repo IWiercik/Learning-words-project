@@ -32,6 +32,8 @@ const FieldWithInput = ({ textContent, words, updateValuesMethod, name }) => {
         type="text"
         id={textContent}
         placeholder="Place for word"
+        required={true}
+        minLength={1}
       ></input>
     </Box>
   );
