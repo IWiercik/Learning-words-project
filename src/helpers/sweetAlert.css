@@ -1,0 +1,12 @@
+/* My Version of sweet Alert styling */
+.swal2-popup{
+    background: rgb(15, 15, 15);
+    opacity: 1;
+    color: white;
+    border: 1px solid gray;
+}
+.swal2-validation-message {
+    color: red;
+    background: rgb(15, 15, 15);
+    font-weight: bold;
+}
