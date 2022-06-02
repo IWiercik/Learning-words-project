@@ -6,7 +6,8 @@ import { Button } from 'components/atoms/Button/Button';
 import { AddData } from 'configFirebase/firebase';
 import { appContext } from 'providers/Providers';
 import { useState } from 'react';
-const Wrapper = styled.div`
+import { alertForEmptyInput } from 'helpers/sweetAlert';
+const Wrapper = styled.form`
   display: flex;
   flex-direction: column;
   row-gap: 25px;
@@ -18,7 +19,7 @@ const TypingMode = () => {
   const initialState = { engWord: '', plWord: '' };
   const [words, setWords] = useState(initialState);
   const ctx = useContext(appContext);
-  // const userUID = ctx.currentUser.uid;
+
   return (
     <Wrapper>
       <Title>Typing Mode</Title>
@@ -26,11 +27,16 @@ const TypingMode = () => {
       <FieldWithInput updateValuesMethod={setWords} name="plWord" words={words} textContent="Polish Word:"></FieldWithInput>
       <ButtonContainer>
         <Button
-          onClick={() => {
-            const userEmail = ctx.currentUser.email;
-            AddData(userEmail, words);
-            console.log('Wysłano!');
-            setWords(initialState);
+          onClick={(e) => {
+            e.preventDefault();
+            if (words.engWord.length === 0 || words.plWord.length === 0) {
+              alertForEmptyInput();
+            } else {
+              const userEmail = ctx.currentUser.email;
+              AddData(userEmail, words);
+              console.log('Wysłano!');
+              setWords(initialState);
+            }
           }}
         >
           ADD
