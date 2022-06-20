@@ -8,7 +8,7 @@ export const Wrapper = styled.div`
     color: ${({ answer }) => {
       if (answer === 'Waiting') {
         return 'Gray';
-      } else if (answer === 'Good') {
+      } else if (answer === 'Correct') {
         return 'Green';
       } else if (answer === 'Wrong') {
         return 'Red';
