@@ -5,7 +5,7 @@ import TranslationInput from 'components/atoms/TranslationInput/TranslationInput
 import { Button } from 'components/atoms/Button/Button';
 import { useSelector } from 'react-redux';
 import { alertForHints } from 'helpers/sweetAlert';
-import { ButtonsBox, Wrapper } from './LearningMode.style';
+import { ButtonsBox, Wrapper, LettersBox } from './LearningMode.style';
 //Redux
 import { useDispatch } from 'react-redux';
 import { updateWordToTranslate } from 'store/wordToTranslateSlice';
@@ -19,48 +19,87 @@ const LearningMode = () => {
   // Single words
   let wordToTranslate = useSelector((state) => Object.values(state.wordToTranslateSlice)[0]);
   const wordToTranslateIndex = engWords.findIndex((word) => word === wordToTranslate);
-  const correctTranslationOfWord = plWords[wordToTranslateIndex];
+  let correctTranslationOfWord = plWords[wordToTranslateIndex];
   const [answerCorrectness, setAnswerCorrectness] = useState({ state: 'Waiting', text: 'Waiting for your translation...' });
   // User
   let userTranslation;
   const getUserTranslation = (val) => {
     userTranslation = val;
   };
-
+  // Functioning
+  function getIndexOfNewWord() {
+    let randomIndex = Math.floor(Math.random() * engWords.length);
+    //Avoiding same word as previous using index
+    while (randomIndex === wordToTranslateIndex) {
+      randomIndex = Math.floor(Math.random() * engWords.length);
+    }
+    return randomIndex;
+  }
+  const [clearInputFlag, setClearInputFlag] = useState(false);
+  function clearInputFlagHandler() {
+    setClearInputFlag(true);
+    setTimeout(() => {
+      setClearInputFlag(false);
+    }, 100);
+  }
+  //Animation item
+  const singleLettersOfAnswerCorrectness = [...answerCorrectness.text];
   return (
-    <Wrapper answer={answerCorrectness.state}>
+    <Wrapper answer={answerCorrectness.state} text={answerCorrectness.text}>
       <Title>Learning Mode</Title>
       <Text>
         English Word:
         <strong> {wordToTranslate}</strong>
       </Text>
-      <TranslationInput sendData={getUserTranslation}></TranslationInput>
-      <h4>{answerCorrectness.text}</h4>
+      <TranslationInput reset={clearInputFlag} sendData={getUserTranslation}></TranslationInput>
+      <LettersBox>
+        {/* Divided letters to animate it */}
+        {singleLettersOfAnswerCorrectness.map((letter) => {
+          return <span>{letter}</span>;
+        })}
+      </LettersBox>
       <ButtonsBox>
         <Button
           onClick={() => {
             alertForHints(correctTranslationOfWord);
           }}
+          disabled={wordToTranslate ? false : true}
         >
           Hint !
         </Button>
         <Button
           onClick={() => {
+            userTranslation = userTranslation.trim();
+            userTranslation = userTranslation.toLowerCase();
+            correctTranslationOfWord = correctTranslationOfWord.trim();
+            correctTranslationOfWord = correctTranslationOfWord.toLowerCase();
             if (userTranslation === correctTranslationOfWord) {
               setAnswerCorrectness({ state: 'Correct', text: 'Well done!' });
               //Reroll the new word after 3 seconds
               setTimeout(function () {
-                dispatch(updateWordToTranslate(engWords[Math.floor(Math.random() * engWords.length)]));
+                clearInputFlagHandler();
+                dispatch(updateWordToTranslate(engWords[getIndexOfNewWord()]));
                 setAnswerCorrectness({ state: 'Waiting', text: 'Waiting for your translation...' });
-              }, 3000);
+              }, 2000);
             } else {
               setAnswerCorrectness({ state: 'Wrong', text: 'Try again!' });
             }
           }}
+          // used to avoid the user click spam when he quess the translate or there is  no word
+          disabled={(answerCorrectness.state === 'Correct' ? true : false) || (wordToTranslate ? false : true)}
         >
           Check !
         </Button>
-        <Button>Swap !</Button>
+        <Button
+          onClick={() => {
+            clearInputFlagHandler();
+            dispatch(updateWordToTranslate(engWords[getIndexOfNewWord()]));
+            setAnswerCorrectness({ state: 'Waiting', text: 'Waiting for your translation...' });
+          }}
+          disabled={answerCorrectness.state === 'Correct' ? true : false}
+        >
+          Swap !
+        </Button>
       </ButtonsBox>
     </Wrapper>
   );
