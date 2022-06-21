@@ -7,8 +7,7 @@ export const wordToTranslateSlice = createSlice({
   initialState,
   reducers: {
     updateWordToTranslate: (state, data) => {
-      console.log(data.payload);
-      state.wordToTranslate = data.payload
+      state.wordToTranslate = data.payload;
     },
   },
 });
