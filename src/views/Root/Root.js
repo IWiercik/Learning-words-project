@@ -17,8 +17,10 @@ const Root = () => {
   const dispatch = useDispatch();
   ctx.currentUser &&
     getData(ctx.currentUser.email).then((result) => {
-      if (result) {
-        const actualWordToTranslate = result.engWords[Math.floor(Math.random() * result.engWords.length)];
+      // Do something with data when it exist
+      if (result !== undefined) {
+        const engWords = result[0];
+        const actualWordToTranslate = engWords[Math.floor(Math.random() * engWords.length)];
         dispatch(downloadData(result));
         dispatch(updateWordToTranslate(actualWordToTranslate));
       }
