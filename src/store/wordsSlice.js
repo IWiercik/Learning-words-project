@@ -8,8 +8,8 @@ export const wordsDataSlice = createSlice({
   initialState,
   reducers: {
     downloadData: (state, data) => {
-      state.plWords = data.payload.plWords;
-      state.engWords = data.payload.engWords;
+      state.engWords = data.payload[0];
+      state.plWords = data.payload[1];
     },
   },
 });
