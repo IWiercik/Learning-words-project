@@ -22,7 +22,6 @@ const List = styled.ul`
   display: flex;
   flex-direction: column;
   text-align: center;
-  /* padding-right: 20px; */
   row-gap: 20px;
 `;
 const ListItem = styled(NavLink)`
@@ -67,6 +66,9 @@ const Navigation = ({ isAuthorized }) => {
             </ListItem>
             <ListItem activeClassName="active-link" exact to="/learning">
               <h1>Learning Mode</h1>
+            </ListItem>
+            <ListItem activeClassName="active-link" exact to="/wordsControlPanel">
+              <h1>Words Control Panel</h1>
             </ListItem>
             <Logout
               onClick={() => {
