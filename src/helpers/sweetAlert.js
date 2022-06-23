@@ -7,7 +7,7 @@ export const alertForHints = (wordToTranslate) => {
   MySwal.fire({
     icon: 'question',
     html: `
-     <h2>How much letters do you want ?</h2>
+     <h2>How many letters do you want ?</h2>
      <p>You can have max ${maxLettersForHint} letters</p>
      `,
     input: 'number',
@@ -15,7 +15,7 @@ export const alertForHints = (wordToTranslate) => {
       if (value < 0) {
         Swal.showValidationMessage(`You can't do this!`);
       } else if (value > maxLettersForHint) {
-        Swal.showValidationMessage(`You want too much letters!`);
+        Swal.showValidationMessage(`You want too many letters!`);
       }
     },
   }).then((result) => {
