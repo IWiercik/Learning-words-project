@@ -58,8 +58,8 @@ const LearningMode = () => {
         <TranslationInput reset={clearInputFlag} sendData={getUserTranslation}></TranslationInput>
         <LettersBox>
           {/* Divided letters to animate it */}
-          {singleLettersOfAnswerCorrectness.map((letter) => {
-            return <span>{letter}</span>;
+          {singleLettersOfAnswerCorrectness.map((letter, key) => {
+            return <span key={key}>{letter}</span>;
           })}
         </LettersBox>
         <ButtonsBox>
@@ -79,7 +79,7 @@ const LearningMode = () => {
               correctTranslationOfWord = correctTranslationOfWord.toLowerCase();
               if (userTranslation === correctTranslationOfWord) {
                 setAnswerCorrectness({ state: 'Correct', text: 'Well done!' });
-                //Reroll the new word after 3 seconds
+                //Reroll the new word after 2 seconds
                 setTimeout(function () {
                   clearInputFlagHandler();
                   dispatch(updateWordToTranslate(engWords[getIndexOfNewWord()]));
@@ -89,7 +89,7 @@ const LearningMode = () => {
                 setAnswerCorrectness({ state: 'Wrong', text: 'Try again!' });
               }
             }}
-            // used to avoid the user click spam when he quess the translate or there is  no word
+            // used to avoid the user click spam when he quess the translate or there is no word
             disabled={(answerCorrectness.state === 'Correct' ? true : false) || (wordToTranslate ? false : true)}
           >
             Check !
