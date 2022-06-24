@@ -2,7 +2,7 @@ import { initializeApp } from 'firebase/app';
 import firebaseConfig from './firebaseConfig';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, getAuth } from '@firebase/auth';
 import { getFirestore } from 'firebase/firestore';
-import { doc, getDoc, setDoc, updateDoc, onSnapshot } from '@firebase/firestore';
+import { doc, getDoc, updateDoc, setDoc, onSnapshot } from '@firebase/firestore';
 import { alertForAddingWordsToDataBase } from 'helpers/sweetAlert';
 
 const app = initializeApp(firebaseConfig);
@@ -35,18 +35,18 @@ export function signInUser(email, password) {
 //FireStore
 const db = getFirestore(app);
 const collection = 'Words';
-export const AddData = async (userUID, userData, userWordsDataLength) => {
+export const AddData = async (userUID, userData, array) => {
   const document = userUID;
   const userRef = doc(db, collection, document);
   getDoc(userRef)
     .then((result) => {
       //If document exist we update it
       if (result.exists()) {
-        const id = userWordsDataLength + 1;
+        const id = getLowestId(array);
         updateDoc(userRef, { [id]: { engWord: userData.engWord, plWord: userData.plWord } });
       } else {
         //If Document not exist we need to create initial form
-        setDoc(userRef, { 1: { engWord: userData.engWord, plWord: userData.plWord } });
+        setDoc(userRef, { '01': { engWord: userData.engWord, plWord: userData.plWord } });
       }
     })
     .then(alertForAddingWordsToDataBase);
@@ -58,15 +58,17 @@ export async function getData(userUID) {
   return getDoc(docRef).then((result) => {
     if (result.exists()) {
       const obj = result.data();
+      const ids = [];
       const engWords = [];
       const plWords = [];
       (function prepareTheDataToReturn() {
-        Object.keys(obj).forEach((word) => {
-          engWords.push(obj[word].engWord);
-          plWords.push(obj[word].plWord);
+        Object.keys(obj).forEach((id) => {
+          engWords.push(obj[id].engWord);
+          plWords.push(obj[id].plWord);
+          ids.push(id);
         });
       })();
-      return [engWords, plWords];
+      return [engWords, plWords, ids];
     } else {
       return result.data();
     }
@@ -80,8 +82,31 @@ export async function listenForData(userUID, updateReduxWordData) {
     const data = await getData(document);
     if (data !== undefined) {
       updateReduxWordData(data);
-    } else {
-      console.log('You need to first have data!');
     }
   });
+}
+
+export function deleteSingleData() {}
+
+//Customs functions for firebase
+
+function getLowestId(array) {
+  const sortedIdsOfWords = [...array].sort();
+  let lowestId;
+  let index = 1;
+  while (lowestId === undefined) {
+    if (index < 10) {
+      // Less than 10 format : 01,02,03,04...
+      if (`0${index}` !== sortedIdsOfWords[index - 1]) {
+        lowestId = `0${index}`;
+      }
+    } else {
+      // Above 10 format 11,12,13...
+      if (`${index}` !== sortedIdsOfWords[index - 1]) {
+        lowestId = index;
+      }
+    }
+    index++;
+  }
+  return lowestId;
 }
