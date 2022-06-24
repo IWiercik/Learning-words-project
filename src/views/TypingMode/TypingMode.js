@@ -19,7 +19,7 @@ const ButtonContainer = styled.div`
   align-self: center;
 `;
 const TypingMode = () => {
-  const wordsDataLength = useSelector((state) => state.wordsDataSlice.engWords).length; // used to get the id of new item
+  const wordsIds = useSelector((state) => state.wordsDataSlice.idsWords); // used to get the id of new item
   const initialState = { engWord: '', plWord: '' };
   const [words, setWords] = useState(initialState);
   const ctx = useContext(appContext);
@@ -38,7 +38,7 @@ const TypingMode = () => {
                 alertForEmptyInput();
               } else {
                 const userEmail = ctx.currentUser.email;
-                AddData(userEmail, words, wordsDataLength);
+                AddData(userEmail, words, wordsIds);
                 setWords(initialState);
               }
             }}
