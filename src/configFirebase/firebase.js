@@ -2,7 +2,7 @@ import { initializeApp } from 'firebase/app';
 import firebaseConfig from './firebaseConfig';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, getAuth } from '@firebase/auth';
 import { getFirestore } from 'firebase/firestore';
-import { doc, getDoc, setDoc, updateDoc } from '@firebase/firestore';
+import { doc, getDoc, setDoc, updateDoc, onSnapshot } from '@firebase/firestore';
 import { alertForAddingWordsToDataBase } from 'helpers/sweetAlert';
 
 const app = initializeApp(firebaseConfig);
@@ -72,9 +72,16 @@ export async function getData(userUID) {
     }
   });
 }
-// export function listenForData(userUID) {
-//   const document = userUID;
-//   const docRef = doc(db, collection, document);
-
-//   onSnapshot(docRef, (doc) => console.log(doc.data()));
-// }
+export async function listenForData(userUID, updateReduxWordData) {
+  const document = userUID;
+  const docRef = doc(db, collection, document);
+  //On new data we get Data and Update Redux state (React)
+  onSnapshot(docRef, async () => {
+    const data = await getData(document);
+    if (data !== undefined) {
+      updateReduxWordData(data);
+    } else {
+      console.log('You need to first have data!');
+    }
+  });
+}

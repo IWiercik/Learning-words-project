@@ -6,7 +6,7 @@ import { Wrapper } from './Root.style';
 import { appContext } from 'providers/Providers';
 import PreAuth from 'layout/PreAuth/PreAuth';
 import MainTemplate from 'layout/MainTemplate/MainTemplate';
-import { getData } from 'configFirebase/firebase';
+import { getData, listenForData } from 'configFirebase/firebase';
 import { useDispatch } from 'react-redux';
 import { downloadData } from 'store/wordsSlice';
 import { updateWordToTranslate } from 'store/wordToTranslateSlice';
@@ -15,16 +15,15 @@ const Root = () => {
   // On the start app we download the user data and hear on snapshot
   const ctx = useContext(appContext);
   const dispatch = useDispatch();
-  ctx.currentUser &&
-    getData(ctx.currentUser.email).then((result) => {
-      // Do something with data when it exist
-      if (result !== undefined) {
-        const engWords = result[0];
-        const actualWordToTranslate = engWords[Math.floor(Math.random() * engWords.length)];
-        dispatch(downloadData(result));
-        dispatch(updateWordToTranslate(actualWordToTranslate));
-      }
-    });
+  const updateReduxWordData = (result) => {
+    const engWords = result[0];
+    const actualWordToTranslate = engWords[Math.floor(Math.random() * engWords.length)];
+    dispatch(downloadData(result));
+    dispatch(updateWordToTranslate(actualWordToTranslate));
+  };
+  // If user is authorized we download and listen for new data
+  // I passed the function to update redux database to snapshot firebase function
+  ctx.currentUser && listenForData(ctx.currentUser.email, updateReduxWordData);
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle> </GlobalStyle>
