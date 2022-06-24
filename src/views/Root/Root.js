@@ -6,7 +6,7 @@ import { Wrapper } from './Root.style';
 import { appContext } from 'providers/Providers';
 import PreAuth from 'layout/PreAuth/PreAuth';
 import MainTemplate from 'layout/MainTemplate/MainTemplate';
-import { getData, listenForData } from 'configFirebase/firebase';
+import { listenForData } from 'configFirebase/firebase';
 import { useDispatch } from 'react-redux';
 import { downloadData } from 'store/wordsSlice';
 import { updateWordToTranslate } from 'store/wordToTranslateSlice';
@@ -26,7 +26,7 @@ const Root = () => {
   ctx.currentUser && listenForData(ctx.currentUser.email, updateReduxWordData);
   return (
     <ThemeProvider theme={theme}>
-      <GlobalStyle> </GlobalStyle>
+      <GlobalStyle />
       <Wrapper> {ctx.currentUser ? <MainTemplate /> : <PreAuth />}</Wrapper>
     </ThemeProvider>
   );
