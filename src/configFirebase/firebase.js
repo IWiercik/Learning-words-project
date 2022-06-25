@@ -2,7 +2,7 @@ import { initializeApp } from 'firebase/app';
 import firebaseConfig from './firebaseConfig';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, getAuth } from '@firebase/auth';
 import { getFirestore } from 'firebase/firestore';
-import { doc, getDoc, updateDoc, setDoc, onSnapshot } from '@firebase/firestore';
+import { doc, getDoc, updateDoc, setDoc, onSnapshot, deleteField } from '@firebase/firestore';
 import { alertForAddingWordsToDataBase } from 'helpers/sweetAlert';
 
 const app = initializeApp(firebaseConfig);
@@ -86,7 +86,13 @@ export async function listenForData(userUID, updateReduxWordData) {
   });
 }
 
-export function deleteSingleData() {}
+export async function deleteSingleData(userUID, elementId) {
+  const document = userUID;
+  const userRef = doc(db, collection, document);
+  await updateDoc(userRef, {
+    [elementId]: deleteField(),
+  })
+}
 
 //Customs functions for firebase
 
