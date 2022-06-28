@@ -41,3 +41,10 @@ export const alertForEmptyInput = () => {
     title: 'Fill in the fields!',
   });
 };
+
+export const alertForEditingWords = () => {
+  Swal.fire({
+    icon: 'warning',
+    title: `Lets's goo!`,
+  });
+};
