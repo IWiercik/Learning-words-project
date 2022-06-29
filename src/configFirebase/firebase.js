@@ -57,18 +57,22 @@ export async function getData(userUID) {
   const docRef = doc(db, collection, document);
   return getDoc(docRef).then((result) => {
     if (result.exists()) {
-      const obj = result.data();
-      const ids = [];
-      const engWords = [];
-      const plWords = [];
-      (function prepareTheDataToReturn() {
-        Object.keys(obj).forEach((id) => {
-          engWords.push(obj[id].engWord);
-          plWords.push(obj[id].plWord);
-          ids.push(id);
-        });
-      })();
-      return [engWords, plWords, ids];
+      const dataToReturn = []; // I want the new data to be sorted array instead of object
+      const dataDownloaded = result.data();
+      //Creating New Array
+      Object.entries(dataDownloaded).forEach((item) =>
+        dataToReturn.push({
+          // [0] id [1] attributes
+          id: item[0],
+          engWord: item[1].engWord,
+          plWord: item[1].plWord,
+        })
+      );
+      // Then sorting Array
+      dataToReturn.sort((a, b) => {
+        return a.id - b.id;
+      });
+      return dataToReturn;
     } else {
       return result.data();
     }
@@ -91,7 +95,7 @@ export async function deleteSingleData(userUID, elementId) {
   const userRef = doc(db, collection, document);
   await updateDoc(userRef, {
     [elementId]: deleteField(),
-  })
+  });
 }
 
 //Customs functions for firebase
