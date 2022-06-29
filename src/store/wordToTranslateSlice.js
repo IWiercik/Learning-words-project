@@ -1,13 +1,21 @@
 import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
-  wordToTranslate: '',
+  wordToTranslate: {
+    id: '',
+    translation: '',
+    correctTranslation: '',
+  },
 };
 export const wordToTranslateSlice = createSlice({
   name: 'wordToTranslateSlice',
   initialState,
   reducers: {
     updateWordToTranslate: (state, data) => {
-      state.wordToTranslate = data.payload;
+      state.wordToTranslate = {
+        id: data.payload.id,
+        translation: data.payload.engWord,
+        correctTranslation: data.payload.plWord,
+      };
     },
   },
 });

@@ -16,8 +16,7 @@ const Root = () => {
   const ctx = useContext(appContext);
   const dispatch = useDispatch();
   const updateReduxWordData = (result) => {
-    const engWords = result[0];
-    const actualWordToTranslate = engWords[Math.floor(Math.random() * engWords.length)];
+    const actualWordToTranslate = result[Math.floor(Math.random() * result.length)];
     dispatch(downloadData(result));
     dispatch(updateWordToTranslate(actualWordToTranslate));
   };

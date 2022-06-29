@@ -15,13 +15,13 @@ const LearningMode = () => {
   //Redux
   const dispatch = useDispatch();
   //Data with words
-  const engWords = useSelector((state) => state.wordsDataSlice.engWords);
-  const plWords = useSelector((state) => state.wordsDataSlice.plWords);
+  const words = useSelector((state) => state.wordsDataSlice.words);
   // Single words
-  let wordToTranslate = useSelector((state) => Object.values(state.wordToTranslateSlice)[0]);
-  const wordToTranslateIndex = engWords.findIndex((word) => word === wordToTranslate);
-  let correctTranslationOfWord = plWords[wordToTranslateIndex];
+  const wordToTranslate = useSelector((state) => state.wordToTranslateSlice.wordToTranslate);
+  const wordToTranslateIndex = words.findIndex((word) => word.id === wordToTranslate.id);
+  //States
   const [answerCorrectness, setAnswerCorrectness] = useState({ state: 'Waiting', text: 'Waiting for your translation...' });
+  const [clearInputFlag, setClearInputFlag] = useState(false);
   // User
   let userTranslation;
   const getUserTranslation = (val) => {
@@ -29,16 +29,15 @@ const LearningMode = () => {
   };
   // Functioning
   function getIndexOfNewWord() {
-    let randomIndex = Math.floor(Math.random() * engWords.length);
+    let randomIndex = Math.floor(Math.random() * words.length);
     //Avoiding same word as previous using index
-    if (engWords.length >= 2) {
+    if (words.length >= 2) {
       while (randomIndex === wordToTranslateIndex) {
-        randomIndex = Math.floor(Math.random() * engWords.length);
+        randomIndex = Math.floor(Math.random() * words.length);
       }
     }
     return randomIndex;
   }
-  const [clearInputFlag, setClearInputFlag] = useState(false);
   function clearInputFlagHandler() {
     setClearInputFlag(true);
     setTimeout(() => {
@@ -53,7 +52,7 @@ const LearningMode = () => {
         <Title>Learning Mode</Title>
         <Text>
           English Word:
-          <strong> {wordToTranslate === ' ' ? 'Add your word!' : wordToTranslate}</strong>
+          <strong> {wordToTranslate.translation === ' ' ? 'Add your word!' : wordToTranslate.translation}</strong>
         </Text>
         <TranslationInput reset={clearInputFlag} sendData={getUserTranslation}></TranslationInput>
         <LettersBox>
@@ -65,7 +64,7 @@ const LearningMode = () => {
         <ButtonsBox>
           <Button
             onClick={() => {
-              alertForHints(correctTranslationOfWord);
+              alertForHints(wordToTranslate.correctTranslation);
             }}
             disabled={wordToTranslate ? false : true}
           >
@@ -73,16 +72,18 @@ const LearningMode = () => {
           </Button>
           <Button
             onClick={() => {
+              //Removing Whitespaces and transform to lower case translations
               userTranslation = userTranslation.trim();
               userTranslation = userTranslation.toLowerCase();
-              correctTranslationOfWord = correctTranslationOfWord.trim();
-              correctTranslationOfWord = correctTranslationOfWord.toLowerCase();
-              if (userTranslation === correctTranslationOfWord) {
+              let correctTranslation = wordToTranslate.correctTranslation;
+              correctTranslation = correctTranslation.trim();
+              correctTranslation = correctTranslation.toLowerCase();
+              if (userTranslation === correctTranslation) {
                 setAnswerCorrectness({ state: 'Correct', text: 'Well done!' });
                 //Reroll the new word after 2 seconds
                 setTimeout(function () {
                   clearInputFlagHandler();
-                  dispatch(updateWordToTranslate(engWords[getIndexOfNewWord()]));
+                  dispatch(updateWordToTranslate(words[getIndexOfNewWord()]));
                   setAnswerCorrectness({ state: 'Waiting', text: 'Waiting for your translation...' });
                 }, 2000);
               } else {
@@ -97,7 +98,7 @@ const LearningMode = () => {
           <Button
             onClick={() => {
               clearInputFlagHandler();
-              dispatch(updateWordToTranslate(engWords[getIndexOfNewWord()]));
+              dispatch(updateWordToTranslate(words[getIndexOfNewWord()]));
               setAnswerCorrectness({ state: 'Waiting', text: 'Waiting for your translation...' });
             }}
             disabled={answerCorrectness.state === 'Correct' ? true : false}

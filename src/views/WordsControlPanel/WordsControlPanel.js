@@ -14,9 +14,7 @@ import { Table, TableAdditionalOptions, TableItemsContainer, Row } from './Words
 function WordsControlPanel() {
   const ctx = useContext(appContext);
   const user = ctx.currentUser.email;
-  const engWords = useSelector((state) => state.wordsDataSlice.engWords);
-  const plWords = useSelector((state) => state.wordsDataSlice.plWords);
-  const wordsIds = useSelector((state) => state.wordsDataSlice.idsWords);
+  const words = useSelector((state) => state.wordsDataSlice.words);
   // console.log('[Pl Word]', plWords, '\n', '[Eng Word]:', engWords, '\n', '[Ids] :', wordsIds);
   let inputValue;
   const getInputValue = (val) => {
@@ -37,11 +35,7 @@ function WordsControlPanel() {
         ></img>
         <TableAdditionalOptions className={isHidden ? 'hidden-content' : 'show-content'}>
           <Input placeholder={'Type words to filter'} sendData={getInputValue}></Input>
-          <button
-            onClick={() => {
-              console.log(inputValue);
-            }}
-          >
+          <button onClick={() => {}}>
             <strong>Delete All</strong>
           </button>
         </TableAdditionalOptions>
@@ -60,13 +54,13 @@ function WordsControlPanel() {
               <strong>Actions</strong>
             </div>
           </Row>
-          {engWords.map((word, index) => {
+          {words.map((word, index) => {
             // i+1 cause the array start from 0 and I want to itterate from 1
             return (
-              <Row key={wordsIds[index]}>
+              <Row>
                 <div>{index + 1}</div>
-                <div>{word}</div>
-                <div>{plWords[index]}</div>
+                <div>{word.engWord}</div>
+                <div>{word.plWord}</div>
                 <div className="action">
                   <button
                     name="edit-item-button"
@@ -81,7 +75,7 @@ function WordsControlPanel() {
                     name="delete-item-button"
                     className="buttonCircle"
                     onClick={() => {
-                      deleteSingleData(user, wordsIds[index]);
+                      deleteSingleData(user, word.id);
                     }}
                   >
                     <img alt="delete-Icon" src={deleteIcon}></img>
