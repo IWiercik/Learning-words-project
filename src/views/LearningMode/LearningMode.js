@@ -52,7 +52,7 @@ const LearningMode = () => {
         <Title>Learning Mode</Title>
         <Text>
           English Word:
-          <strong> {wordToTranslate.translation === ' ' ? 'Add your word!' : wordToTranslate.translation}</strong>
+          <strong> {wordToTranslate.translation === '' ? 'Add your word!' : wordToTranslate.translation}</strong>
         </Text>
         <TranslationInput reset={clearInputFlag} sendData={getUserTranslation}></TranslationInput>
         <LettersBox>
@@ -66,7 +66,7 @@ const LearningMode = () => {
             onClick={() => {
               alertForHints(wordToTranslate.correctTranslation);
             }}
-            disabled={wordToTranslate ? false : true}
+            disabled={wordToTranslate && wordToTranslate.translation.length > 1 ? false : true}
           >
             Hint !
           </Button>
@@ -91,7 +91,10 @@ const LearningMode = () => {
               }
             }}
             // used to avoid the user click spam when he quess the translate or there is no word
-            disabled={(answerCorrectness.state === 'Correct' ? true : false) || (wordToTranslate ? false : true)}
+            disabled={
+              (answerCorrectness.state === 'Correct' ? true : false) ||
+              (wordToTranslate && wordToTranslate.translation.length > 1 ? false : true)
+            }
           >
             Check !
           </Button>
@@ -101,7 +104,10 @@ const LearningMode = () => {
               dispatch(updateWordToTranslate(words[getIndexOfNewWord()]));
               setAnswerCorrectness({ state: 'Waiting', text: 'Waiting for your translation...' });
             }}
-            disabled={answerCorrectness.state === 'Correct' ? true : false}
+            disabled={
+              (answerCorrectness.state === 'Correct' ? true : false) ||
+              (wordToTranslate && wordToTranslate.translation.length > 1 ? false : true)
+            }
           >
             Swap !
           </Button>
