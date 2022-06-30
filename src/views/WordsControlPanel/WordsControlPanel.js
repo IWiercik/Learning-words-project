@@ -6,22 +6,46 @@ import arrowUp from 'assets/images/icons/arrow-up.svg';
 import { useSelector } from 'react-redux';
 import { useContext, useState } from 'react';
 import { appContext } from 'providers/Providers';
-import { deleteSingleData } from 'configFirebase/firebase';
+import { deleteSingleData, deleteAllData } from 'configFirebase/firebase';
 import { alertForEditingWords } from 'helpers/sweetAlert';
 import Input from 'components/atoms/Input/Input';
 import { Table, TableAdditionalOptions, TableItemsContainer, Row } from './WordsControlPanel.style';
+import { useDispatch } from 'react-redux';
+import { downloadData } from 'store/wordsSlice';
+import { updateWordToTranslate } from 'store/wordToTranslateSlice';
 
 function WordsControlPanel() {
+  //Data
   const ctx = useContext(appContext);
   const user = ctx.currentUser.email;
   const words = useSelector((state) => state.wordsDataSlice.words);
-  // console.log('[Pl Word]', plWords, '\n', '[Eng Word]:', engWords, '\n', '[Ids] :', wordsIds);
-  let inputValue;
-  const getInputValue = (val) => {
-    inputValue = val;
-  };
   const [isHidden, setIsHidden] = useState(true);
-  //CSS Variable
+  //Input
+  const initialInputValue = '';
+  const [inputValue, setInputValue] = useState(initialInputValue);
+  const handleInput = (e) => {
+    setInputValue(e.target.value);
+  };
+  //Filtering
+  let filteredData;
+  if (isHidden) {
+    filteredData = words;
+  } else {
+    const regExp = new RegExp(`${inputValue}`, 'gi');
+    filteredData = words.filter((word) => word.engWord.match(regExp) || word.plWord.match(regExp));
+  }
+  //Redux ()
+  const dispatch = useDispatch();
+  function reduxDataDelete() {
+    dispatch(
+      updateWordToTranslate({
+        id: '',
+        engWord: '',
+        plWord: '',
+      })
+    );
+    dispatch(downloadData([]));
+  }
   return (
     <CenterContainer modifiers="none">
       <Table>
@@ -34,8 +58,13 @@ function WordsControlPanel() {
           }}
         ></img>
         <TableAdditionalOptions className={isHidden ? 'hidden-content' : 'show-content'}>
-          <Input placeholder={'Type words to filter'} sendData={getInputValue}></Input>
-          <button onClick={() => {}}>
+          <Input placeholder={'Type words to filter'} value={inputValue} onChange={handleInput}></Input>
+          <button
+            onClick={() => {
+              deleteAllData(user); // Firebase
+              reduxDataDelete();
+            }}
+          >
             <strong>Delete All</strong>
           </button>
         </TableAdditionalOptions>
@@ -54,10 +83,10 @@ function WordsControlPanel() {
               <strong>Actions</strong>
             </div>
           </Row>
-          {words.map((word, index) => {
-            // i+1 cause the array start from 0 and I want to itterate from 1
+          {filteredData.map((word, index) => {
+            // index+1 cause the array start from 0 and I want to itterate from 1
             return (
-              <Row>
+              <Row key={word.id}>
                 <div>{index + 1}</div>
                 <div>{word.engWord}</div>
                 <div>{word.plWord}</div>
@@ -66,7 +95,7 @@ function WordsControlPanel() {
                     name="edit-item-button"
                     className="buttonRectangle"
                     onClick={() => {
-                      alertForEditingWords();
+                      alertForEditingWords(word.engWord, word.plWord, word.id, user);
                     }}
                   >
                     <img alt="edit-Icon" src={editIcon}></img>
