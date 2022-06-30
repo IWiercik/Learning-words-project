@@ -2,7 +2,7 @@ import { initializeApp } from 'firebase/app';
 import firebaseConfig from './firebaseConfig';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, getAuth } from '@firebase/auth';
 import { getFirestore } from 'firebase/firestore';
-import { doc, getDoc, updateDoc, setDoc, onSnapshot, deleteField } from '@firebase/firestore';
+import { doc, getDoc, updateDoc, setDoc, onSnapshot, deleteField, deleteDoc } from '@firebase/firestore';
 import { alertForAddingWordsToDataBase } from 'helpers/sweetAlert';
 
 const app = initializeApp(firebaseConfig);
@@ -89,7 +89,6 @@ export async function listenForData(userUID, updateReduxWordData) {
     }
   });
 }
-
 export async function deleteSingleData(userUID, elementId) {
   const document = userUID;
   const userRef = doc(db, collection, document);
@@ -97,9 +96,22 @@ export async function deleteSingleData(userUID, elementId) {
     [elementId]: deleteField(),
   });
 }
-
+export async function deleteAllData(userUID) {
+  const document = userUID;
+  const userRef = doc(db, collection, document);
+  await deleteDoc(userRef);
+}
+export async function editData(userUID, wordID, newEngWord, newPlWord) {
+  const document = userUID;
+  const userRef = doc(db, collection, document);
+  await updateDoc(userRef, {
+    [wordID]: {
+      engWord: newEngWord,
+      plWord: newPlWord,
+    },
+  });
+}
 //Customs functions for firebase
-
 function getLowestId(array) {
   const sortedIdsOfWords = [...array].sort();
   let lowestId;
