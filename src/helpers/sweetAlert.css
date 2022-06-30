@@ -1,5 +1,5 @@
 /* My Version of sweet Alert styling */
-.swal2-popup{
+.swal2-popup {
     background: rgb(15, 15, 15);
     opacity: 1;
     color: white;
@@ -9,4 +9,29 @@
     color: red;
     background: rgb(15, 15, 15);
     font-weight: bold;
+}
+/* Update data sweet alert styles */
+.flex-container{
+    margin-left: auto;
+    margin-right: auto;
+    display: grid;
+    width: 75%;
+    grid-template-columns: 40% auto;
+}
+
+.swal2-popup label {
+    font-size: 20px;
+    justify-self: left;
+    align-self: center;
+}
+
+.swal2-popup input {
+    padding: 10px;
+    color: white;
+    /* border-radius: 5px; */
+    border:  1px solid gray !important;
+    background: black;
+    outline: none;
+    border:1px solid gray;
+    margin-top: 10px;
 }
