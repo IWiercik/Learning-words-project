@@ -4,9 +4,10 @@ export const BasicContainer = styled.div`
   justify-self: center;
   background: rgba(0, 0, 0, 0.397);
   border-radius: 10px;
-  min-width: 300px;
+  min-width: 200px;
   position: relative;
   display: grid;
   box-shadow: 2px 2px 6px -1px rgb(0 0 0);
-  padding: 25px 25px;
+  padding: 25px;
+  margin: 25px;
 `;

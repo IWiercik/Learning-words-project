@@ -1,12 +1,17 @@
 import styled from 'styled-components';
+import { size } from 'assets/styles/mediaQueries.style';
 export const Table = styled.div`
   display: grid;
-  width: 800px;
+  min-width: 800px;
+  max-width: 800px;
+  margin-left: 15px;
+  margin-right: 15px;
   text-align: center;
   .arrow {
     position: absolute;
     transition: 0.5s all;
     right: 0;
+    margin-right: 15px;
     top: -15px;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
@@ -15,6 +20,20 @@ export const Table = styled.div`
   }
   .arrow:hover {
     top: -30px;
+  }
+  @media (max-width: 850px) {
+    && {
+      padding-left: 40px;
+      padding-right: 40px;
+      min-width: 560px;
+    }
+    .arrow:hover {
+      top: -15px;
+    }
+    .arrow {
+      top: -15px;
+      margin-right: 55px;
+    }
   }
 `;
 export const TableAdditionalOptions = styled.div`
@@ -70,6 +89,17 @@ export const Row = styled.div`
   div {
     border: 1px solid gray;
     padding: 15px;
+    overflow-x: auto;
+    ::-webkit-scrollbar {
+      height: 8px;
+      cursor: auto;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: white;
+      border-bottom: 2px solid rgb(0, 0, 0);
+      background-clip: padding-box;
+      border-radius: 15px;
+    }
   }
   .action {
     display: flex;

@@ -1,4 +1,5 @@
 import styled, { keyframes } from 'styled-components';
+import { size } from 'assets/styles/mediaQueries.style';
 //Animations
 const dotEffect = keyframes`
   0%{
@@ -28,6 +29,7 @@ export const Wrapper = styled.div`
   flex-direction: column;
   row-gap: 15px;
   text-align: center;
+  max-width: 400px;
   h4 {
     color: ${({ answer }) => {
       if (answer === 'Waiting') {
@@ -41,12 +43,23 @@ export const Wrapper = styled.div`
   }
   strong {
     color: #008ff6;
+    word-break: break-all;
   }
 `;
 export const ButtonsBox = styled.div`
   display: flex;
   justify-content: space-evenly;
-  padding-bottom: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
+  @media (max-width: ${size.mobileL}) {
+    && {
+      padding: 0;
+    }
+    button {
+      padding: 9px 10px;
+      font-size: 14px;
+    }
+  }
 `;
 
 export const LettersBox = styled.h4`
@@ -67,5 +80,10 @@ export const LettersBox = styled.h4`
   span:nth-child(31) {
     animation: ${dotEffect} 2s backwards infinite;
     animation-delay: 0.5s;
+  }
+  @media (max-width: ${size.mobileL}) {
+    && {
+      font-size: 14px;
+    }
   }
 `;
