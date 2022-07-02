@@ -87,9 +87,13 @@ function WordsControlPanel() {
             // index+1 cause the array start from 0 and I want to itterate from 1
             return (
               <Row key={word.id}>
-                <div>{index + 1}</div>
-                <div>{word.engWord}</div>
-                <div>{word.plWord}</div>
+                <div className="indexes">{index + 1}</div>
+                <div className="word">
+                  <p>{word.engWord}</p>
+                </div>
+                <div className="word">
+                  <p>{word.plWord}</p>
+                </div>
                 <div className="action">
                   <button
                     name="edit-item-button"

@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { size } from 'assets/styles/mediaQueries.style';
 export const Table = styled.div`
   display: grid;
-  min-width: 800px;
+  width: 80vw;
   max-width: 800px;
   margin-left: 15px;
   margin-right: 15px;
@@ -25,7 +25,7 @@ export const Table = styled.div`
     && {
       padding-left: 40px;
       padding-right: 40px;
-      min-width: 560px;
+      width: 90vw;
     }
     .arrow:hover {
       top: -15px;
@@ -63,7 +63,7 @@ export const TableAdditionalOptions = styled.div`
   }
 `;
 export const TableItemsContainer = styled.div`
-  max-height: 477px;
+  max-height: 466px;
   overflow-y: auto;
   z-index: 3;
   .sticky {
@@ -80,6 +80,17 @@ export const TableItemsContainer = styled.div`
     background: rgba(0, 0, 0, 0.8);
     border-radius: 10px;
   }
+  @media (max-width: 650px) {
+    && {
+      max-height: 461px;
+      font-size: 12px;
+    }
+  }
+  @media (max-width: 356px) {
+    && {
+      max-height: 419px;
+    }
+  }
 `;
 export const Row = styled.div`
   display: grid;
@@ -89,16 +100,20 @@ export const Row = styled.div`
   div {
     border: 1px solid gray;
     padding: 15px;
-    overflow-x: auto;
-    ::-webkit-scrollbar {
-      height: 8px;
-      cursor: auto;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: white;
-      border-bottom: 2px solid rgb(0, 0, 0);
-      background-clip: padding-box;
-      border-radius: 15px;
+    p {
+      padding: 3px;
+      height: 100%;
+      overflow-x: auto;
+      ::-webkit-scrollbar {
+        height: 8px;
+        cursor: auto;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: white;
+        border-bottom: 2px solid rgb(0, 0, 0);
+        background-clip: padding-box;
+        border-radius: 15px;
+      }
     }
   }
   .action {
@@ -109,6 +124,14 @@ export const Row = styled.div`
       border: none;
       background: none;
       cursor: pointer;
+    }
+  }
+  @media (max-width: 550px) {
+    && {
+      grid-template-columns: 35% 35% 30%;
+    }
+    && div:nth-child(1) {
+      display: none;
     }
   }
 `;
