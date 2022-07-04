@@ -8,6 +8,6 @@ export const BasicContainer = styled.div`
   position: relative;
   display: grid;
   box-shadow: 2px 2px 6px -1px rgb(0 0 0);
-  padding: 25px;
+  padding: ${({ noPadding }) => (noPadding ? 'none' : `25px`)};
   margin: 25px;
 `;
