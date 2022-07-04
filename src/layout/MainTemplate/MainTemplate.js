@@ -10,9 +10,9 @@ const MainTemplate = () => {
     <Router>
       <Navigation isAuthorized={true}></Navigation>
       <Switch>
-        <Route exact path="/typing" component={TypingMode}></Route>
-        <Route exact path="/learning" component={LearningMode}></Route>
-        <Route exact path="/wordsControlPanel" component={WordsControlPanel}></Route>
+        <Route path="/typing" component={TypingMode}></Route>
+        <Route path="/learning" component={LearningMode}></Route>
+        <Route path="/wordsControlPanel" component={WordsControlPanel}></Route>
         <Route component={TypingMode} />
       </Switch>
     </Router>
