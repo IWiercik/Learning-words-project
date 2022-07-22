@@ -43,6 +43,10 @@ export const Navbar = styled.nav`
   &&.showMenu {
     width: 300px;
   }
+  .active h2 {
+    border-left: 2px solid white;
+    border-right: 2px solid white;
+  }
   @media (max-width: ${size.laptop}) {
     // Below latop size we hide menu vertically
     && {
@@ -73,15 +77,11 @@ export const List = styled.ul`
   row-gap: 20px;
 `;
 export const ListItem = styled(NavLink)`
-  h1 {
+  h2 {
     display: inline;
     padding-left: 10px;
     padding-right: 10px;
     padding-bottom: 5px;
-  }
-  &.active-link h1 {
-    border-right: 2px solid white;
-    border-left: 2px solid white;
   }
 `;
 export const Logout = styled.button`

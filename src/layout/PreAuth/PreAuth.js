@@ -1,22 +1,22 @@
 import React from 'react';
 import Navigation from 'components/organisms/Navigation/Navigation';
 import { BasicContainer } from 'components/molecules/BasicContainer/BasicContainer.style';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import RegistrationForm from 'views/RegistrationForm/Registration';
 import LoginForm from 'views/LoginForm/LoginForm';
 import Home from 'views/Home/Home';
 
 const preAuth = () => (
-  <Router>
+  <BrowserRouter>
     <Navigation isAuthorized={false}></Navigation>
     <BasicContainer noPadding={true}>
-      <Switch>
-        <Route path="/home" component={Home}></Route>
-        <Route path="/login" component={LoginForm} />
-        <Route path="/register" component={RegistrationForm} />
-        <Route component={Home} />
-      </Switch>
+      <Routes>
+        <Route path="/home" element={<Home />} />
+        <Route path="/login" element={<LoginForm />} />
+        <Route path="/register" element={<RegistrationForm />} />
+        <Route path="*" element={<Home />} />
+      </Routes>
     </BasicContainer>
-  </Router>
+  </BrowserRouter>
 );
 export default preAuth;

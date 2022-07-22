@@ -35,17 +35,17 @@ const Navigation = ({ isAuthorized }) => {
           {isAuthorized ? (
             /* Authorized User */
             <React.Fragment>
-              <ListItem activeClassName="active-link" to="/home">
-                <h1>Home</h1>
+              <ListItem to="/home">
+                <h2>Home</h2>
               </ListItem>
-              <ListItem activeClassName="active-link" to="/typing">
-                <h1>Typing Mode</h1>
+              <ListItem to="/typing">
+                <h2>Typing Mode</h2>
               </ListItem>
-              <ListItem activeClassName="active-link" to="/learning">
-                <h1>Learning Mode</h1>
+              <ListItem to="/learning">
+                <h2>Learning Mode</h2>
               </ListItem>
-              <ListItem activeClassName="active-link" to="/wordsControlPanel">
-                <h1>Words Control Panel</h1>
+              <ListItem to="/wordsControlPanel">
+                <h2>Words Control Panel</h2>
               </ListItem>
               <Logout
                 onClick={() => {
@@ -58,14 +58,14 @@ const Navigation = ({ isAuthorized }) => {
           ) : (
             /* Not Authorized User */
             <React.Fragment>
-              <ListItem activeClassName="active-link" to="/home">
-                <h1>Home</h1>
+              <ListItem to="/home">
+                <h2>Home</h2>
               </ListItem>
-              <ListItem activeClassName="active-link" to="/register">
-                <h1>Registration</h1>
+              <ListItem to="/register">
+                <h2>Registration</h2>
               </ListItem>
-              <ListItem activeClassName="active-link" to="/login">
-                <h1>Login</h1>
+              <ListItem to="/login">
+                <h2>Login</h2>
               </ListItem>
             </React.Fragment>
           )}

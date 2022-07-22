@@ -4,6 +4,7 @@ import { Title } from 'components/atoms/Title/Title';
 import { HomeContainer } from './Home.style';
 import { ButtonsBox } from 'views/LearningMode/LearningMode.style';
 import { ButtonLink } from './Home.style';
+import { signInUser } from 'configFirebase/firebase';
 function Home() {
   return (
     <HomeContainer>
@@ -18,8 +19,12 @@ function Home() {
         <Button>
           <ButtonLink to="/home">Tutorial</ButtonLink>
         </Button>
-        <Button>
-          <ButtonLink to="/login">Guest Account</ButtonLink>
+        <Button
+          onClick={() => {
+            signInUser('guest@gmail.com', 'B497M7E06iJPbrGE72xZ');
+          }}
+        >
+          Guest Account
         </Button>
       </ButtonsBox>
     </HomeContainer>

@@ -1,21 +1,21 @@
 import React from 'react';
 import Navigation from 'components/organisms/Navigation/Navigation';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import TypingMode from 'views/TypingMode/TypingMode';
 import LearningMode from 'views/LearningMode/LearningMode';
 import WordsControlPanel from 'views/WordsControlPanel/WordsControlPanel';
 
 const MainTemplate = () => {
   return (
-    <Router>
+    <BrowserRouter>
       <Navigation isAuthorized={true}></Navigation>
-      <Switch>
-        <Route path="/typing" component={TypingMode}></Route>
-        <Route path="/learning" component={LearningMode}></Route>
-        <Route path="/wordsControlPanel" component={WordsControlPanel}></Route>
-        <Route component={TypingMode} />
-      </Switch>
-    </Router>
+      <Routes>
+        <Route path="/typing" element={<TypingMode />}></Route>
+        <Route path="/learning" element={<LearningMode />}></Route>
+        <Route path="/wordsControlPanel" element={<WordsControlPanel />}></Route>
+        <Route path="*" element={<TypingMode />} />
+      </Routes>
+    </BrowserRouter>
   );
 };
 export default MainTemplate;
