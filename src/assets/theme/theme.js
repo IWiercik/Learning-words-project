@@ -9,8 +9,8 @@ export const theme = {
     badAnswer: '#CB8581',
   },
   fontSize: {
-    xl: '24px',
-    l: '20px',
+    xl: '26px',
+    l: '24px',
     m: '16px',
     s: '14px',
   },
