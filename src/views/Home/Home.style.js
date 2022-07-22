@@ -24,7 +24,13 @@ export const HomeContainer = styled.div`
   }
   @media (max-width: ${size.mobileM}) {
     && {
-      width: 330px;
+      width: 300px;
+    }
+    button {
+      font-size: 12px;
+    }
+    p {
+      font-size: 18px;
     }
   }
 `;
