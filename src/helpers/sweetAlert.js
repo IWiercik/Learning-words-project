@@ -78,3 +78,9 @@ export const alertForEditingWords = (engWord, plWord, id, user) => {
     });
   });
 };
+export const alertForSuccessfulLogin = () => {
+  Swal.fire({
+    icon: 'success',
+    title: 'Successful login!',
+  });
+};
