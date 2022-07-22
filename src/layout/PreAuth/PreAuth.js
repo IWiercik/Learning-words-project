@@ -4,6 +4,7 @@ import { BasicContainer } from 'components/molecules/BasicContainer/BasicContain
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import RegistrationForm from 'views/RegistrationForm/Registration';
 import LoginForm from 'views/LoginForm/LoginForm';
+import Tutorial from 'views/Tutorial/Tutorial';
 import Home from 'views/Home/Home';
 
 const preAuth = () => (
@@ -14,6 +15,7 @@ const preAuth = () => (
         <Route path="/home" element={<Home />} />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/register" element={<RegistrationForm />} />
+        <Route path="/tutorial" element={<Tutorial />} />
         <Route path="*" element={<Home />} />
       </Routes>
     </BasicContainer>
