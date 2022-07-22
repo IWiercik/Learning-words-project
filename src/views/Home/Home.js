@@ -17,7 +17,7 @@ function Home() {
           <ButtonLink to="/register">Get started!</ButtonLink>
         </Button>
         <Button>
-          <ButtonLink to="/home">Tutorial</ButtonLink>
+          <ButtonLink to="/tutorial">Tutorial</ButtonLink>
         </Button>
         <Button
           onClick={() => {
