@@ -3,7 +3,7 @@ import firebaseConfig from './firebaseConfig';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, getAuth } from '@firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 import { doc, getDoc, updateDoc, setDoc, onSnapshot, deleteField, deleteDoc } from '@firebase/firestore';
-import { alertForAddingWordsToDataBase, alertForSuccessfulLogin } from 'helpers/sweetAlert';
+import { alertForAddingWordsToDataBase, alertForSuccessfulLogin, alertForFailedLogin } from 'helpers/sweetAlert';
 
 const app = initializeApp(firebaseConfig);
 //AUTH, REGISTRATION + SIGN IN
@@ -15,20 +15,18 @@ export const createUser = (login, password) => {
       //   const user = userCredential.user;
     })
     .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.warn(errorCode, errorMessage);
+      return false;
     });
 };
-export async function signInUser(email, password) {
+export function signInUser(email, password) {
   return signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       alertForSuccessfulLogin();
     })
     .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.warn(errorCode, errorMessage);
+      console.clear();
+      const apiError = error.code.substring(5, error.code.length);
+      alertForFailedLogin(apiError, error.message);
     });
 }
 //FireStore

@@ -1,6 +1,7 @@
 import Form from 'components/organisms/Form.js/Form';
 import { useState } from 'react';
 import { createUser } from 'configFirebase/firebase';
+import { alertForFailedRegistration } from 'helpers/sweetAlert';
 //Firebase
 const RegistrationForm = () => {
   //Registration Values
@@ -28,6 +29,8 @@ const RegistrationForm = () => {
     if (loginCorrect && passwordCorrect) {
       setRegistrationFormValues(initialState); // clear the inputs
       createUser(registrationFormValues.login, registrationFormValues.password);
+    } else {
+      alertForFailedRegistration(loginCorrect,passwordCorrect);
     }
   };
   return (

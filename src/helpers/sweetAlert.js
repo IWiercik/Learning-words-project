@@ -84,3 +84,49 @@ export const alertForSuccessfulLogin = () => {
     title: 'Successful login!',
   });
 };
+export const alertForFailedLogin = (error, message) => {
+  let explainMessage;
+  switch (error) {
+    case 'invalid-email':
+      explainMessage = 'Check your email or create account';
+      break;
+    case 'user-not-found':
+      explainMessage = 'There is no user with this email.You need to create account';
+      break;
+    case 'wrong-password':
+      explainMessage = 'This password is incorrect.If you want to reset password click: XXX';
+      break;
+    case 'too-many-requests':
+      explainMessage =
+        ' Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later.Reset Password: XXXXX';
+      break;
+    default:
+      explainMessage = message;
+  }
+  Swal.fire({
+    icon: 'error',
+    title: `${error}`,
+    text: `${explainMessage}`,
+  });
+};
+export const alertForFailedRegistration = (emailCorrectnes, passwordCorrectnes) => {
+  if (emailCorrectnes === false && passwordCorrectnes === true) {
+    Swal.fire({
+      icon: 'error',
+      title: `Wrong email`,
+      text: `Email need to contains @ and domain(.com/.pl/..) `,
+    });
+  } else if (passwordCorrectnes === false && emailCorrectnes === true) {
+    Swal.fire({
+      icon: 'error',
+      title: `Wrong password`,
+      text: `Password need to contains atleast 6 letters `,
+    });
+  } else if (passwordCorrectnes === false && emailCorrectnes === false) {
+    Swal.fire({
+      icon: 'error',
+      title: `Wrong email and password`,
+      text: `Password need to contains atleast 6 letters.Email need to contains @ and domain(.com/.pl/..) `,
+    });
+  }
+};
