@@ -30,7 +30,7 @@ export const Navbar = styled.nav`
     top: 50%;
     margin-bottom: 13px;
     border-radius: 25px;
-    border: 1px solid gray;
+    border: 1px solid rgba(255, 255, 255, 0.3);
     padding: 10px;
     z-index: 3;
     background: gray;
