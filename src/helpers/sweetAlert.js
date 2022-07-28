@@ -2,9 +2,12 @@ import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import 'helpers/sweetAlert.css';
 import { editData } from 'configFirebase/firebase';
+import { sendingEmailWithNewPassword } from 'configFirebase/firebase';
+import parse from 'html-react-parser';
+
+const MySwal = withReactContent(Swal);
 export const alertForHints = (wordToTranslate) => {
   const maxLettersForHint = Math.round(wordToTranslate.length / 2);
-  const MySwal = withReactContent(Swal);
   MySwal.fire({
     icon: 'question',
     html: `
@@ -28,7 +31,6 @@ export const alertForHints = (wordToTranslate) => {
     }
   });
 };
-
 export const alertForAddingWordsToDataBase = () => {
   Swal.fire({
     icon: 'success',
@@ -78,6 +80,7 @@ export const alertForEditingWords = (engWord, plWord, id, user) => {
     });
   });
 };
+//LOGIN/REGISTRATION
 export const alertForSuccessfulLogin = () => {
   Swal.fire({
     icon: 'success',
@@ -86,47 +89,124 @@ export const alertForSuccessfulLogin = () => {
 };
 export const alertForFailedLogin = (error, message) => {
   let explainMessage;
+  let resetPasswordAvailable;
   switch (error) {
     case 'invalid-email':
-      explainMessage = 'Check your email or create account';
+      explainMessage = 'Check your email or create account.';
       break;
     case 'user-not-found':
-      explainMessage = 'There is no user with this email.You need to create account';
+      explainMessage = `There is no user with this email.<br>You need to create account.`;
       break;
     case 'wrong-password':
-      explainMessage = 'This password is incorrect.If you want to reset password click: XXX';
+      explainMessage = `This password is incorrect.<br>If you want to reset password click:<br>`;
+      resetPasswordAvailable = true;
       break;
     case 'too-many-requests':
-      explainMessage =
-        ' Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later.Reset Password: XXXXX';
+      explainMessage = `Access to this account has been temporarily disabled due to many failed login attempts.<br> You can immediately restore it by resetting your password or you can try again later.<br>`;
+      resetPasswordAvailable = true;
       break;
     default:
       explainMessage = message;
+      resetPasswordAvailable = false;
   }
-  Swal.fire({
-    icon: 'error',
-    title: `${error}`,
-    text: `${explainMessage}`,
+  MySwal.fire({
+    title: ' ',
+    html: (
+      <div className="failed-login-div">
+        {parse(explainMessage)}
+        {resetPasswordAvailable && (
+          <span className="reset-password" onClick={alertForResetingPassword}>
+            Reset Password
+          </span>
+        )}
+      </div>
+    ),
   });
 };
-export const alertForFailedRegistration = (emailCorrectnes, passwordCorrectnes) => {
+export const alertForFailedRegistration = (emailCorrectnes, passwordCorrectnes, error) => {
+  let swalTitle;
+  let swalText;
+  let resetPasswordAvailable;
+  // EMAIL/LOGIN  CORRECTNESS
   if (emailCorrectnes === false && passwordCorrectnes === true) {
-    Swal.fire({
-      icon: 'error',
-      title: `Wrong email`,
-      text: `Email need to contains @ and domain(.com/.pl/..) `,
-    });
+    swalTitle = `Wrong email`;
+    swalText = `Email need to contain @ and domain(.com/.pl/..) `;
   } else if (passwordCorrectnes === false && emailCorrectnes === true) {
-    Swal.fire({
-      icon: 'error',
-      title: `Wrong password`,
-      text: `Password need to contains atleast 6 letters `,
-    });
+    swalTitle = `Wrong password`;
+    swalText = `Password need to contain atleast 6 letters `;
   } else if (passwordCorrectnes === false && emailCorrectnes === false) {
-    Swal.fire({
-      icon: 'error',
-      title: `Wrong email and password`,
-      text: `Password need to contains atleast 6 letters.Email need to contains @ and domain(.com/.pl/..) `,
-    });
+    swalTitle = `Wrong email and password`;
+    swalText = `Password need to contain atleast 6 letters.Email need to contain @ and domain(.com/.pl/..) `;
   }
+  //USER EXISTS
+  switch (error) {
+    case 'email-already-in-use':
+      swalTitle = `User existing`;
+      swalText = `Login into your account or reset password:<br>`;
+      resetPasswordAvailable = true;
+      break;
+    default:
+  }
+  MySwal.fire({
+    icon: 'error',
+    title: swalTitle,
+    html: (
+      <div>
+        <p>{parse(swalText)}</p>
+        {resetPasswordAvailable && (
+          <span className="reset-password" onClick={alertForResetingPassword}>
+            Reset Password
+          </span>
+        )}
+      </div>
+    ),
+  });
+};
+export const alertForResetingPassword = () => {
+  MySwal.fire({
+    html: `
+     <h2>Pass your email</h2>
+     `,
+    input: 'text',
+    preConfirm: (value) => {},
+  }).then((result) => {
+    if (result.isConfirmed) {
+      sendingEmailWithNewPassword(result.value);
+    }
+  });
+};
+export const alertForSuccessfulPasswordReset = () => {
+  Swal.fire({
+    icon: 'success',
+    title: 'Reset password link sent!',
+    text: 'Check your email(look also in spam)',
+  });
+};
+export const alertForFailedPasswordReset = (error, message) => {
+  let explainMessage;
+  let resetPasswordAvailable;
+  switch (error) {
+    case 'invalid-email':
+      explainMessage = 'Check your email or create account.';
+      break;
+    case 'user-not-found':
+      explainMessage = `There is no user with this email.<br>You need to create account.`;
+      break;
+    default:
+      explainMessage = message;
+      resetPasswordAvailable = false;
+  }
+  MySwal.fire({
+    title: ' ',
+    html: (
+      <div className="failed-login-div">
+        {parse(explainMessage)}
+        {resetPasswordAvailable && (
+          <span className="reset-password" onClick={alertForResetingPassword}>
+            Reset Password
+          </span>
+        )}
+      </div>
+    ),
+  });
 };
