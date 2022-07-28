@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
-import { Title } from 'components/atoms/Title/Title';
+import { Title } from 'components/atoms/Title/Title.style';
 import FieldWithInput from 'components/molecules/FieldWithInput/FieldWithInput';
 import styled from 'styled-components';
-import { Button } from 'components/atoms/Button/Button';
+import { Button } from 'components/atoms/Button/Button.style';
 import { AddData } from 'configFirebase/firebase';
 import { appContext } from 'providers/Providers';
 import { useState } from 'react';

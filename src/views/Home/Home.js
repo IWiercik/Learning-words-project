@@ -1,6 +1,6 @@
-import { Button } from 'components/atoms/Button/Button';
+import { Button } from 'components/atoms/Button/Button.style';
 import { Text } from 'components/atoms/Text/Text';
-import { Title } from 'components/atoms/Title/Title';
+import { Title } from 'components/atoms/Title/Title.style';
 import { HomeContainer } from './Home.style';
 import { ButtonsBox } from 'views/LearningMode/LearningMode.style';
 import { ButtonLink } from './Home.style';

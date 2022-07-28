@@ -1,8 +1,8 @@
 import React from 'react';
-import { Title } from 'components/atoms/Title/Title';
+import { Title } from 'components/atoms/Title/Title.style';
 import AuthLoginInput from 'components/atoms/AuthLoginInput/AuthLoginInput';
 import AuthPasswordInput from 'components/atoms/AuthPasswordInput/AuthPasswordInput';
-import { Button } from 'components/atoms/Button/Button';
+import { Button } from 'components/atoms/Button/Button.style';
 import { Wrapper } from './Form.styles';
 const Form = ({ title, submit, value: formValues, updateValuesMethod, formSubmitted, dataAuth }) => {
   const inputChangeHandler = (e) => {

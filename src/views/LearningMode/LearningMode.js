@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Title } from 'components/atoms/Title/Title';
+import { Title } from 'components/atoms/Title/Title.style';
 import { Text } from 'components/atoms/Text/Text';
 import TranslationInput from 'components/atoms/TranslationInput/TranslationInput';
-import { Button } from 'components/atoms/Button/Button';
+import { Button } from 'components/atoms/Button/Button.style';
 import { useSelector } from 'react-redux';
 import { alertForHints } from 'helpers/sweetAlert';
 import { ButtonsBox, Wrapper, LettersBox } from './LearningMode.style';
@@ -63,6 +63,7 @@ const LearningMode = () => {
         </LettersBox>
         <ButtonsBox>
           <Button
+            blueTemplate={true}
             onClick={() => {
               alertForHints(wordToTranslate.correctTranslation);
             }}
@@ -71,6 +72,7 @@ const LearningMode = () => {
             Hint !
           </Button>
           <Button
+            blueTemplate={true}
             onClick={() => {
               //Removing Whitespaces and transform to lower case translations
               userTranslation = userTranslation.trim();
@@ -99,6 +101,7 @@ const LearningMode = () => {
             Check !
           </Button>
           <Button
+            blueTemplate={true}
             onClick={() => {
               clearInputFlagHandler();
               dispatch(updateWordToTranslate(words[getIndexOfNewWord()]));
