@@ -31,18 +31,18 @@ export const Wrapper = styled.div`
   text-align: center;
   max-width: 400px;
   h4 {
-    color: ${({ answer }) => {
+    color: ${({ answer, theme }) => {
       if (answer === 'Waiting') {
-        return 'rgb(0, 143, 202)';
+        return `${theme.colors.blue}`;
       } else if (answer === 'Correct') {
-        return 'Green';
+        return `${theme.colors.correctAnswer}`;
       } else if (answer === 'Wrong') {
-        return 'Red';
+        return `${theme.colors.wrongAnswer}`;
       }
     }};
   }
   strong {
-    color: #008ff6;
+    color: ${({ theme }) => theme.colors.blue};
     word-break: break-all;
   }
 `;
@@ -57,7 +57,7 @@ export const ButtonsBox = styled.div`
     }
     button {
       padding: 9px 10px;
-      font-size: 14px;
+      font-size: ${({ theme }) => theme.fontSize.s};
     }
   }
 `;
@@ -83,7 +83,7 @@ export const LettersBox = styled.h4`
   }
   @media (max-width: ${size.mobileL}) {
     && {
-      font-size: 14px;
+      font-size: ${({ theme }) => theme.colors.s};
     }
   }
 `;

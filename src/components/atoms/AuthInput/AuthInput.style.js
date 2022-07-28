@@ -5,9 +5,9 @@ export const AuthInput = styled.input`
   border: none;
   outline: none;
   border-bottom: ${({ isValid }) => (isValid ? '1px solid white' : '1px solid red')};
-  font-size: ${({ theme }) => theme.fontSize.m};
+  font-size: ${({ theme }) => theme.fontSize.s};
   &::placeholder {
-    color: white;
+    color: rgba(255, 255, 255, 0.5);
   }
   &:-webkit-autofill,
   &:-webkit-autofill:hover,

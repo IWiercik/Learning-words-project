@@ -7,7 +7,7 @@ export const Box = styled.div`
   justify-content: space-between;
   column-gap: 10px;
   label {
-    font-size: 19px;
+    font-size: ${({ theme }) => theme.fontSize.m};
   }
   input {
     border-radius: 10px;

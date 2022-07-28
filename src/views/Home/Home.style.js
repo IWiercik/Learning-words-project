@@ -12,7 +12,7 @@ export const HomeContainer = styled.div`
     margin-top: 30px;
   }
   p {
-    color: #008eca;
+    color: ${({ theme }) => theme.colors.blue};
   }
   span {
     color: white;
@@ -20,17 +20,17 @@ export const HomeContainer = styled.div`
   }
   button {
     padding: 10px;
-    border: 1px solid #008eca;
+    border: 1px solid ${({ theme }) => theme.colors.blue};
   }
   @media (max-width: ${size.mobileM}) {
     && {
       width: 300px;
     }
     button {
-      font-size: 12px;
+      font-size: ${({ theme }) => theme.fontSize.xs};
     }
     p {
-      font-size: 18px;
+      font-size: ${({ theme }) => theme.colors.s};
     }
   }
 `;

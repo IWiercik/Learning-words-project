@@ -46,7 +46,7 @@ export const TableAdditionalOptions = styled.div`
     border: 1px solid gray;
     outline: none;
     background: rgba(0, 0, 0, 0.397);
-    font-size: 20px;
+    font-size: ${({ theme }) => theme.colors.m};
   }
   button {
     background: #0d0d0d;
@@ -82,7 +82,7 @@ export const TableItemsContainer = styled.div`
   @media (max-width: 650px) {
     && {
       max-height: 461px;
-      font-size: 12px;
+      font-size: ${({ theme }) => theme.colors.xs};
     }
   }
   @media (max-width: 356px) {

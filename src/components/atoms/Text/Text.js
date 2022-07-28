@@ -1,5 +1,5 @@
 import styled from 'styled-components';
 export const Text = styled.p`
-  font-size: 20px;
+  font-size: ${({ theme }) => theme.fontSize.m};
   text-align: center;
 `;
