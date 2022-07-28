@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { size } from 'assets/styles/mediaQueries.style';
 export const Table = styled.div`
   display: grid;
   width: 80vw;
