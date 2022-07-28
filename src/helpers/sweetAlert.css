@@ -5,13 +5,23 @@
     color: white;
     border: 1px solid gray;
 }
+
 .swal2-validation-message {
     color: red;
     background: rgb(15, 15, 15);
     font-weight: bold;
 }
+
+.swal2-styled.swal2-confirm {
+    background: #008eca !important;
+}
+
+.swal2-popup p {
+    font-size: 18px !important;
+}
+
 /* Update data sweet alert styles */
-.flex-container{
+.flex-container {
     margin-left: auto;
     margin-right: auto;
     display: grid;
@@ -28,10 +38,24 @@
 .swal2-popup input {
     padding: 10px;
     color: white;
-    /* border-radius: 5px; */
-    border:  1px solid gray !important;
+    border: 1px solid gray !important;
     background: black;
     outline: none;
-    border:1px solid gray;
+    border: 1px solid gray;
     margin-top: 10px;
+}
+
+/* REGISTRATION/LOGIN */
+.failed-login-div {
+    font-size: 20px;
+}
+
+.reset-password {
+    transition: 0.5s all;
+    color: #008eca;
+    cursor: pointer;
+}
+
+.reset-password:hover {
+    font-size: 25px;
 }
