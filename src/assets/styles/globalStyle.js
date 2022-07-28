@@ -28,7 +28,7 @@ h2{
     font-size: ${({ theme }) => theme.fontSize.l};
 }
 p,label{
-    font-size: ${({ theme }) => theme.fontSize.m};
+    font-size: ${({ theme }) => theme.fontSize.s};
 }
 //Fonts
 a,button{
@@ -36,12 +36,5 @@ a,button{
 }
 label{
     font-family: 'Roboto Condensed', sans-serif; 
-}
-// Alerts
-.sweetAlertInput{
-    color: black ;
-   padding-top:  5px;
-   padding-bottom: 5px ;
-   font-size:20px ;
 }
 `;

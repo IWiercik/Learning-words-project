@@ -20,7 +20,14 @@
     font-size: 18px !important;
 }
 
-/* Update data sweet alert styles */
+.sweetAlertInput {
+    color: black;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-size: 20px;
+}
+
+/* Update data sweetalert styles */
 .flex-container {
     margin-left: auto;
     margin-right: auto;
@@ -30,6 +37,7 @@
 }
 
 .swal2-popup label {
+    margin-top: 5px;
     font-size: 20px;
     justify-self: left;
     align-self: center;
@@ -42,6 +50,7 @@
     background: black;
     outline: none;
     border: 1px solid gray;
+    align-self: center;
     margin-top: 10px;
 }
 
