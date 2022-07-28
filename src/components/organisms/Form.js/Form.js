@@ -1,6 +1,7 @@
 import React from 'react';
 import { Title } from 'components/atoms/Title/Title';
-import { Input } from 'components/atoms/AuthInput/AuthInput.styles';
+import AuthLoginInput from 'components/atoms/AuthLoginInput/AuthLoginInput';
+import AuthPasswordInput from 'components/atoms/AuthPasswordInput/AuthPasswordInput';
 import { Button } from 'components/atoms/Button/Button';
 import { Wrapper } from './Form.styles';
 const Form = ({ title, submit, value: formValues, updateValuesMethod, formSubmitted, dataAuth }) => {
@@ -13,26 +14,12 @@ const Form = ({ title, submit, value: formValues, updateValuesMethod, formSubmit
   return (
     <Wrapper onSubmit={formSubmitted}>
       <Title>{title}</Title>
-      <Input
-        required={true}
-        name="login"
-        placeholder="Your-Email"
-        type="text"
-        value={formValues.login}
-        onChange={inputChangeHandler}
-        isValid={dataAuth.login}
-        autoComplete="on"
-      ></Input>
-      <Input
-        required={true}
-        name="password"
-        placeholder="Password"
-        type="password"
+      <AuthLoginInput value={formValues.login} onChange={inputChangeHandler} isValid={dataAuth.login}></AuthLoginInput>
+      <AuthPasswordInput
         value={formValues.password}
         onChange={inputChangeHandler}
         isValid={dataAuth.password}
-        autoComplete="on"
-      ></Input>
+      ></AuthPasswordInput>
       <Button>{submit}</Button>
     </Wrapper>
   );

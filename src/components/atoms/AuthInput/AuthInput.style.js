@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-export const Input = styled.input`
+export const AuthInput = styled.input`
   padding: 10px;
   background: none !important;
   border: none;
@@ -16,4 +16,9 @@ export const Input = styled.input`
     transition: background-color 50000s;
     -webkit-text-fill-color: white !important;
   }
+`;
+export const TogglePasswordVisibility = styled.img`
+  position: absolute;
+  cursor: pointer;
+  right: 0;
 `;

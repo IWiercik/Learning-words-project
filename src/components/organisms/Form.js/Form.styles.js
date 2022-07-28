@@ -8,7 +8,8 @@ export const Wrapper = styled.form`
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  input {
-    max-width: 60%;
+  div {
+    position: relative;
+    max-width: 70%;
   }
 `;
