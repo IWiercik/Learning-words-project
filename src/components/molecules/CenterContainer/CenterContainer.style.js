@@ -7,5 +7,5 @@ export const CenterContainer = styled.div`
   position: relative;
   display: grid;
   box-shadow: ${({ modifiers }) => (modifiers === 'none' ? 'none' : `2px 2px 6px -1px rgb(0 0 0);`)};
-  overflow: visible ;
+  overflow: visible;
 `;
