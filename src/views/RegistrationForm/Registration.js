@@ -30,7 +30,7 @@ const RegistrationForm = () => {
       setRegistrationFormValues(initialState); // clear the inputs
       createUser(registrationFormValues.login, registrationFormValues.password);
     } else {
-      alertForFailedRegistration(loginCorrect,passwordCorrect);
+      alertForFailedRegistration(loginCorrect, passwordCorrect);
     }
   };
   return (
