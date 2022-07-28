@@ -1,9 +1,16 @@
 import { initializeApp } from 'firebase/app';
 import firebaseConfig from './firebaseConfig';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, getAuth } from '@firebase/auth';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, getAuth, sendPasswordResetEmail } from '@firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 import { doc, getDoc, updateDoc, setDoc, onSnapshot, deleteField, deleteDoc } from '@firebase/firestore';
-import { alertForAddingWordsToDataBase, alertForSuccessfulLogin, alertForFailedLogin } from 'helpers/sweetAlert';
+import {
+  alertForAddingWordsToDataBase,
+  alertForSuccessfulLogin,
+  alertForFailedLogin,
+  alertForFailedRegistration,
+  alertForSuccessfulPasswordReset,
+  alertForFailedPasswordReset,
+} from 'helpers/sweetAlert';
 
 const app = initializeApp(firebaseConfig);
 //AUTH, REGISTRATION + SIGN IN
@@ -15,7 +22,9 @@ export const createUser = (login, password) => {
       //   const user = userCredential.user;
     })
     .catch((error) => {
-      return false;
+      console.clear();
+      const apiError = error.code.substring(5, error.code.length);
+      alertForFailedRegistration(login, password, apiError);
     });
 };
 export function signInUser(email, password) {
@@ -29,6 +38,20 @@ export function signInUser(email, password) {
       alertForFailedLogin(apiError, error.message);
     });
 }
+//USER FUNCTIONS
+export const sendingEmailWithNewPassword = (email) => {
+  sendPasswordResetEmail(auth, email)
+    .then(() => {
+      // Password reset email sent!
+      alertForSuccessfulPasswordReset();
+    })
+    .catch((error) => {
+      console.clear();
+      const apiError = error.code.substring(5, error.code.length);
+      alertForFailedPasswordReset(apiError, error.message);
+      // ..
+    });
+};
 //FireStore
 const db = getFirestore(app);
 const collection = 'Words';
