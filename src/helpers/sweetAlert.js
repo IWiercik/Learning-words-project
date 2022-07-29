@@ -6,6 +6,7 @@ import { sendingEmailWithNewPassword } from 'configFirebase/firebase';
 import parse from 'html-react-parser';
 
 const MySwal = withReactContent(Swal);
+//POST AUTH FUNCTIONING
 export const alertForHints = (wordToTranslate) => {
   const maxLettersForHint = Math.round(wordToTranslate.length / 2);
   MySwal.fire({
@@ -37,14 +38,12 @@ export const alertForAddingWordsToDataBase = () => {
     title: 'Sent!',
   });
 };
-
 export const alertForEmptyInput = () => {
   Swal.fire({
     icon: 'warning',
     title: 'Fill in the fields!',
   });
 };
-
 export const alertForEditingWords = (engWord, plWord, id, user) => {
   const MySwal = withReactContent(Swal);
   MySwal.fire({
@@ -78,6 +77,35 @@ export const alertForEditingWords = (engWord, plWord, id, user) => {
         title: 'Updated!',
       });
     });
+  });
+};
+export const alertForVerifingEmail = () => {
+  MySwal.fire({
+    title: 'Your account is not verified',
+    text: 'If you want to have more words you need to first verify your account with email.',
+  });
+};
+export const AlertForSendingVerification = () => {
+  MySwal.fire({
+    icon: 'success',
+    title: 'Email sent check your email',
+  });
+};
+export const alertForConfirmDeletingData = (deleteData, deleteReduxData, user) => {
+  MySwal.fire({
+    title: 'Are you sure you wanna delete all data ?',
+    showDenyButton: true,
+    confirmButtonText: 'Yes I wanna delete all data',
+    denyButtonText: `No I wanna leave`,
+  }).then((result) => {
+    if (result.isConfirmed) {
+      MySwal.fire({
+        icon: 'success',
+        title: 'Data deleted',
+      });
+      deleteData(user);
+      deleteReduxData();
+    }
   });
 };
 //LOGIN/REGISTRATION
