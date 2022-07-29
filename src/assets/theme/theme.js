@@ -8,7 +8,7 @@ export const theme = {
     xl: '26px',
     l: '24px',
     m: '20px',
-    s: '14px',
+    s: '16px',
     xs: '12px',
   },
 };
