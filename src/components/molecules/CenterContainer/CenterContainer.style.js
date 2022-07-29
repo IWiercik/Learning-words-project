@@ -6,6 +6,6 @@ export const CenterContainer = styled.div`
   min-width: 300px;
   position: relative;
   display: grid;
-  box-shadow: ${({ modifiers }) => (modifiers === 'none' ? 'none' : `2px 2px 6px -1px rgb(0 0 0);`)};
+  box-shadow: ${({ modifiers }) => (modifiers === 'none' ? 'none' : `2px 2px 6px -1px black`)};
   overflow: visible;
 `;
