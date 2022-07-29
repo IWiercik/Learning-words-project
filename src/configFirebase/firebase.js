@@ -1,6 +1,12 @@
 import { initializeApp } from 'firebase/app';
 import firebaseConfig from './firebaseConfig';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, getAuth, sendPasswordResetEmail } from '@firebase/auth';
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  getAuth,
+  sendPasswordResetEmail,
+  sendEmailVerification,
+} from '@firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 import { doc, getDoc, updateDoc, setDoc, onSnapshot, deleteField, deleteDoc } from '@firebase/firestore';
 import {
@@ -10,6 +16,7 @@ import {
   alertForFailedRegistration,
   alertForSuccessfulPasswordReset,
   alertForFailedPasswordReset,
+  AlertForSendingVerification,
 } from 'helpers/sweetAlert';
 
 const app = initializeApp(firebaseConfig);
@@ -50,6 +57,15 @@ export const sendingEmailWithNewPassword = (email) => {
       const apiError = error.code.substring(5, error.code.length);
       alertForFailedPasswordReset(apiError, error.message);
       // ..
+    });
+};
+export const sendingEmailWithVerification = (user) => {
+  sendEmailVerification(user)
+    .then(() => {
+      AlertForSendingVerification();
+    })
+    .catch((error) => {
+      console.clear();
     });
 };
 //FireStore
