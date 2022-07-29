@@ -38,6 +38,9 @@ const Navigation = ({ isAuthorized }) => {
               <ListItem to="/home">
                 <h2>Home</h2>
               </ListItem>
+              <ListItem to="/Account">
+                <h2>Account</h2>
+              </ListItem>
               <ListItem to="/typing">
                 <h2>Typing Mode</h2>
               </ListItem>
