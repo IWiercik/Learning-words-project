@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 import { useContext, useState } from 'react';
 import { appContext } from 'providers/Providers';
 import { deleteSingleData, deleteAllData } from 'configFirebase/firebase';
-import { alertForEditingWords } from 'helpers/sweetAlert';
+import { alertForEditingWords, alertForConfirmDeletingData } from 'helpers/sweetAlert';
 import Input from 'components/atoms/Input/Input';
 import { Table, TableAdditionalOptions, TableItemsContainer, Row } from './WordsControlPanel.style';
 import { useDispatch } from 'react-redux';
@@ -61,8 +61,9 @@ function WordsControlPanel() {
           <Input placeholder={'Type words to filter'} value={inputValue} onChange={handleInput}></Input>
           <button
             onClick={() => {
-              deleteAllData(user); // Firebase
-              reduxDataDelete();
+              alertForConfirmDeletingData(deleteAllData, reduxDataDelete, user);
+              // deleteAllData(user); // Firebase
+              // reduxDataDelete();
             }}
           >
             <strong>Delete All</strong>
