@@ -6,7 +6,7 @@ import { Button } from 'components/atoms/Button/Button.style';
 import { AddData } from 'configFirebase/firebase';
 import { appContext } from 'providers/Providers';
 import { useState } from 'react';
-import { alertForEmptyInput } from 'helpers/sweetAlert';
+import { alertForEmptyInput, alertForVerifingEmail } from 'helpers/sweetAlert';
 import { BasicContainer } from 'components/molecules/BasicContainer/BasicContainer.style';
 import { useSelector } from 'react-redux';
 
@@ -39,7 +39,13 @@ const TypingMode = () => {
                 alertForEmptyInput();
               } else {
                 const userEmail = ctx.currentUser.email;
-                AddData(userEmail, words, wordsUsedIds);
+                const userIsVerified = ctx.currentUser.emailVerified;
+                //If user is not verified he can have only 10 words
+                if (!userIsVerified && data.length > 10) {
+                  alertForVerifingEmail();
+                } else {
+                  AddData(userEmail, words, wordsUsedIds);
+                }
                 setWords(initialState);
               }
             }}
