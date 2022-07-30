@@ -6,6 +6,7 @@ import LearningMode from 'views/LearningMode/LearningMode';
 import WordsControlPanel from 'views/WordsControlPanel/WordsControlPanel';
 import Home from 'views/Home/Home';
 import Account from 'views/Account/Account';
+import Tutorial from 'views/Tutorial/Tutorial';
 
 const MainTemplate = () => {
   return (
@@ -17,6 +18,7 @@ const MainTemplate = () => {
         <Route path="/typing" element={<TypingMode />}></Route>
         <Route path="/learning" element={<LearningMode />}></Route>
         <Route path="/wordsControlPanel" element={<WordsControlPanel />}></Route>
+        <Route path="/tutorial" element={<Tutorial isAuthorized={true} />} />
         <Route path="*" element={<TypingMode />} />
       </Routes>
     </BrowserRouter>
