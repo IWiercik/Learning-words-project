@@ -2,7 +2,7 @@ import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import 'helpers/sweetAlert.css';
 import { editData } from 'configFirebase/firebase';
-import { sendingEmailWithNewPassword } from 'configFirebase/firebase';
+import { sendingEmailWithNewPassword, updateProfileName } from 'configFirebase/firebase';
 import parse from 'html-react-parser';
 
 const MySwal = withReactContent(Swal);
@@ -106,6 +106,28 @@ export const alertForConfirmDeletingData = (deleteData, deleteReduxData, user) =
       deleteData(user);
       deleteReduxData();
     }
+  });
+};
+export const alertForChangingProfileName = (user) => {
+  MySwal.fire({
+    title: 'New nickname',
+    input: 'text',
+    confirmButtonText: 'Set nickname',
+    preConfirm: (value) => {
+      if (value.length < 3) {
+        Swal.showValidationMessage(`Nickname need to contains atleast 4 letters`);
+      }
+    },
+  }).then((result) => {
+    if (result.isConfirmed) {
+      updateProfileName(user, result.value);
+    }
+  });
+};
+export const alertForSuccessfulProfileNameUpdate = () => {
+  MySwal.fire({
+    icon: 'success',
+    title: 'Successful update!',
   });
 };
 //LOGIN/REGISTRATION
