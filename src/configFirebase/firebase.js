@@ -6,6 +6,8 @@ import {
   getAuth,
   sendPasswordResetEmail,
   sendEmailVerification,
+  updateProfile,
+  signInAnonymously,
 } from '@firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 import { doc, getDoc, updateDoc, setDoc, onSnapshot, deleteField, deleteDoc } from '@firebase/firestore';
@@ -17,6 +19,7 @@ import {
   alertForSuccessfulPasswordReset,
   alertForFailedPasswordReset,
   AlertForSendingVerification,
+  alertForSuccessfulProfileNameUpdate,
 } from 'helpers/sweetAlert';
 
 const app = initializeApp(firebaseConfig);
@@ -45,6 +48,9 @@ export function signInUser(email, password) {
       alertForFailedLogin(apiError, error.message);
     });
 }
+export const signInAnnonymous = () => {
+  signInAnonymously(auth);
+};
 //USER FUNCTIONS
 export const sendingEmailWithNewPassword = (email) => {
   sendPasswordResetEmail(auth, email)
@@ -67,6 +73,11 @@ export const sendingEmailWithVerification = (user) => {
     .catch((error) => {
       console.clear();
     });
+};
+export const updateProfileName = (user, newName) => {
+  updateProfile(user, { displayName: newName }).then(() => {
+    alertForSuccessfulProfileNameUpdate();
+  });
 };
 //FireStore
 const db = getFirestore(app);
