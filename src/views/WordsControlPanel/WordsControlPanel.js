@@ -7,12 +7,13 @@ import { useSelector } from 'react-redux';
 import { useContext, useState } from 'react';
 import { appContext } from 'providers/Providers';
 import { deleteSingleData, deleteAllData } from 'configFirebase/firebase';
-import { alertForEditingWords, alertForConfirmDeletingData } from 'helpers/sweetAlert';
+import { alertForEditingWords, alertForConfirmDeletingData, notificationForNeedingAccount } from 'helpers/sweetAlert';
 import Input from 'components/atoms/Input/Input';
 import { Table, TableAdditionalOptions, TableItemsContainer, Row } from './WordsControlPanel.style';
 import { useDispatch } from 'react-redux';
-import { downloadData } from 'store/wordsSlice';
+import { downloadData, deleteWord } from 'store/wordsSlice';
 import { updateWordToTranslate } from 'store/wordToTranslateSlice';
+import { getNewWord } from 'helpers/helpersJS';
 
 function WordsControlPanel() {
   //Data
@@ -62,8 +63,6 @@ function WordsControlPanel() {
           <button
             onClick={() => {
               alertForConfirmDeletingData(deleteAllData, reduxDataDelete, user);
-              // deleteAllData(user); // Firebase
-              // reduxDataDelete();
             }}
           >
             <strong>Delete All</strong>
@@ -100,7 +99,11 @@ function WordsControlPanel() {
                     name="edit-item-button"
                     className="buttonRectangle"
                     onClick={() => {
-                      alertForEditingWords(word.engWord, word.plWord, word.id, user);
+                      if (user) {
+                        alertForEditingWords(word.engWord, word.plWord, word.id, user);
+                      } else {
+                        notificationForNeedingAccount();
+                      }
                     }}
                   >
                     <img alt="edit-Icon" src={editIcon}></img>
@@ -109,7 +112,20 @@ function WordsControlPanel() {
                     name="delete-item-button"
                     className="buttonCircle"
                     onClick={() => {
-                      deleteSingleData(user, word.id);
+                      if (user) {
+                        deleteSingleData(user, word.id);
+                      } else {
+                        const initialState = {
+                          id: '',
+                          engWord: '',
+                          plWord: '',
+                        };
+                        const arrayWithoutDeletedElement = filteredData.filter((item) => item.id !== word.id);
+                        dispatch(deleteWord(arrayWithoutDeletedElement));
+                        arrayWithoutDeletedElement.length
+                          ? dispatch(updateWordToTranslate(getNewWord(arrayWithoutDeletedElement)))
+                          : dispatch(updateWordToTranslate(initialState));
+                      }
                     }}
                   >
                     <img alt="delete-Icon" src={deleteIcon}></img>

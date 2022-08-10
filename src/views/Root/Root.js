@@ -10,19 +10,33 @@ import { listenForData } from 'configFirebase/firebase';
 import { useDispatch } from 'react-redux';
 import { downloadData } from 'store/wordsSlice';
 import { updateWordToTranslate } from 'store/wordToTranslateSlice';
+import { getNewWord } from 'helpers/helpersJS';
 
 const Root = () => {
   // On the start app we download the user data and hear on snapshot
   const ctx = useContext(appContext);
   const dispatch = useDispatch();
   const updateReduxWordData = (result) => {
-    const actualWordToTranslate = result[Math.floor(Math.random() * result.length)];
     dispatch(downloadData(result));
-    dispatch(updateWordToTranslate(actualWordToTranslate));
+    dispatch(updateWordToTranslate(getNewWord(result)));
   };
-  // If user is authorized we download and listen for new data
+  const updateReduxWordDataForAnnonymous = () => {
+    const exampleWords = [
+      { id: '01', engWord: 'Cat', plWord: 'Kot' },
+      { id: '02', engWord: 'Dog', plWord: 'Dog' },
+    ];
+    dispatch(downloadData(exampleWords));
+    dispatch(updateWordToTranslate(getNewWord(exampleWords)));
+  };
+  // If user is authorized and notAnnymous we download and listen for new data
   // I passed the function to update redux database to snapshot firebase function
-  ctx.currentUser && listenForData(ctx.currentUser.email, updateReduxWordData);
+  if (ctx.currentUser) {
+    if (ctx.currentUser.isAnonymous) {
+      updateReduxWordDataForAnnonymous();
+    } else {
+      listenForData(ctx.currentUser.email, updateReduxWordData);
+    }
+  }
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />

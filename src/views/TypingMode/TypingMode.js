@@ -6,9 +6,17 @@ import { Button } from 'components/atoms/Button/Button.style';
 import { AddData } from 'configFirebase/firebase';
 import { appContext } from 'providers/Providers';
 import { useState } from 'react';
-import { alertForEmptyInput, alertForVerifingEmail } from 'helpers/sweetAlert';
+import {
+  alertForEmptyInput,
+  alertForVerifingEmail,
+  alertForAddingWordsToDataBase,
+  notificationForNeedingAccount,
+} from 'helpers/sweetAlert';
 import { BasicContainer } from 'components/molecules/BasicContainer/BasicContainer.style';
 import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { downloadData } from 'store/wordsSlice';
+import { getLowestId } from 'configFirebase/firebase';
 
 const Wrapper = styled.form`
   display: flex;
@@ -21,9 +29,10 @@ const ButtonContainer = styled.div`
 const TypingMode = () => {
   const data = useSelector((state) => state.wordsDataSlice.words); // used to get the id of new item
   const wordsUsedIds = data.map((item) => item.id);
-  const initialState = { engWord: '', plWord: '' };
+  const initialState = { engWord: '', plWord: '', id: '' };
   const [words, setWords] = useState(initialState);
   const ctx = useContext(appContext);
+  const dispatch = useDispatch();
 
   return (
     <BasicContainer>
@@ -39,12 +48,28 @@ const TypingMode = () => {
                 alertForEmptyInput();
               } else {
                 const userEmail = ctx.currentUser.email;
+                const userHasEmail = ctx.currentUser.email ? true : false;
                 const userIsVerified = ctx.currentUser.emailVerified;
-                //If user is not verified he can have only 10 words
-                if (!userIsVerified && data.length > 10) {
-                  alertForVerifingEmail();
+                if (userHasEmail) {
+                  //User signed with Email
+                  if (userIsVerified) {
+                    AddData(userEmail, { engWord: words.engWord, plWord: words.plWord }, wordsUsedIds);
+                  } else {
+                    if (data.length >= 10) {
+                      alertForVerifingEmail();
+                    } else {
+                      AddData(userEmail, { engWord: words.engWord, plWord: words.plWord }, wordsUsedIds);
+                    }
+                  }
                 } else {
-                  AddData(userEmail, words, wordsUsedIds);
+                  //Anonymous User
+                  if (data.length >= 10) {
+                    notificationForNeedingAccount();
+                  } else {
+                    words.id = getLowestId(wordsUsedIds);
+                    dispatch(downloadData([...data, words]));
+                    alertForAddingWordsToDataBase();
+                  }
                 }
                 setWords(initialState);
               }

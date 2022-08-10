@@ -9,9 +9,12 @@ export const wordsDataSlice = createSlice({
     downloadData: (state, data) => {
       state.words = data.payload;
     },
+    deleteWord: (state, data) => {
+      state.words = data.payload;
+    },
   },
 });
 
-export const { downloadData } = wordsDataSlice.actions;
+export const { downloadData, deleteWord } = wordsDataSlice.actions;
 
 export default wordsDataSlice.reducer;

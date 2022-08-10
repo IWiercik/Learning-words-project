@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 import { appContext } from 'providers/Providers';
 import { AccountInformationWrapper, EmailVerified, SetName, VerifyEmail } from './Account.style';
 import { sendingEmailWithVerification } from 'configFirebase/firebase';
-import { alertForChangingProfileName } from 'helpers/sweetAlert';
+import { alertForChangingProfileName, notificationForNeedingAccount } from 'helpers/sweetAlert';
 import userEvent from '@testing-library/user-event';
 function Account() {
   const ctx = useContext(appContext);
@@ -12,7 +12,7 @@ function Account() {
     <BasicContainer>
       <AccountInformationWrapper>
         <h3>
-          Email: <span>{user.email}</span>
+          Email: <span>{user.email ? user.email : 'Guest Account'}</span>
         </h3>
         <h3>
           Username:{' '}

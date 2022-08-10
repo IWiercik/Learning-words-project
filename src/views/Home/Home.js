@@ -6,6 +6,7 @@ import { ButtonsBox } from 'views/LearningMode/LearningMode.style';
 import { ButtonLink } from './Home.style';
 import { signInUser } from 'configFirebase/firebase';
 import { CenterContainer } from 'components/molecules/CenterContainer/CenterContainer.style';
+import { signInAnnonymous } from 'configFirebase/firebase';
 import React from 'react';
 function Home({ isAuthorized }) {
   return (
@@ -39,7 +40,8 @@ function Home({ isAuthorized }) {
             </Button>
             <Button
               onClick={() => {
-                signInUser('quest@gmail.com', 'B497M7E06iJPbrGE72xZ');
+                // signInUser('quest@gmail.com', 'B497M7E06iJPbrGE72xZ');
+                signInAnnonymous();
               }}
             >
               Guest Account

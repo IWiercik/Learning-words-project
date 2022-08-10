@@ -92,21 +92,25 @@ export const AlertForSendingVerification = () => {
   });
 };
 export const alertForConfirmDeletingData = (deleteData, deleteReduxData, user) => {
-  MySwal.fire({
-    title: 'Are you sure you wanna delete all data ?',
-    showDenyButton: true,
-    confirmButtonText: 'Yes I wanna delete all data',
-    denyButtonText: `No I wanna leave`,
-  }).then((result) => {
-    if (result.isConfirmed) {
-      MySwal.fire({
-        icon: 'success',
-        title: 'Data deleted',
-      });
-      deleteData(user);
-      deleteReduxData();
-    }
-  });
+  if (user) {
+    MySwal.fire({
+      title: 'Are you sure you wanna delete all data ?',
+      showDenyButton: true,
+      confirmButtonText: 'Yes I wanna delete all data',
+      denyButtonText: `No I wanna leave`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        MySwal.fire({
+          icon: 'success',
+          title: 'Data deleted',
+        });
+        deleteData(user);
+        deleteReduxData();
+      }
+    });
+  } else {
+    notificationForNeedingAccount();
+  }
 };
 export const alertForChangingProfileName = (user) => {
   MySwal.fire({
@@ -128,6 +132,12 @@ export const alertForSuccessfulProfileNameUpdate = () => {
   MySwal.fire({
     icon: 'success',
     title: 'Successful update!',
+  });
+};
+export const notificationForNeedingAccount = () => {
+  MySwal.fire({
+    title: 'Permission Denied!',
+    html: 'You need to <span style="color:lightgreen; font-weight:bold;">create account</span> instead using <span style="color:red;">guest account</span>',
   });
 };
 //LOGIN/REGISTRATION
