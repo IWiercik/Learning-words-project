@@ -20,6 +20,7 @@ import {
   alertForFailedPasswordReset,
   AlertForSendingVerification,
   alertForSuccessfulProfileNameUpdate,
+  notificationForNeedingAccount,
 } from 'helpers/sweetAlert';
 
 const app = initializeApp(firebaseConfig);
@@ -72,6 +73,7 @@ export const sendingEmailWithVerification = (user) => {
     })
     .catch((error) => {
       console.clear();
+      notificationForNeedingAccount();
     });
 };
 export const updateProfileName = (user, newName) => {
@@ -159,7 +161,7 @@ export async function editData(userUID, wordID, newEngWord, newPlWord) {
   });
 }
 //Customs functions for firebase
-function getLowestId(array) {
+export function getLowestId(array) {
   const sortedIdsOfWords = [...array].sort();
   let lowestId;
   let index = 1;
