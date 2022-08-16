@@ -23,7 +23,7 @@ const Root = () => {
   const updateReduxWordDataForAnnonymous = () => {
     const exampleWords = [
       { id: '01', engWord: 'Cat', plWord: 'Kot' },
-      { id: '02', engWord: 'Dog', plWord: 'Dog' },
+      { id: '02', engWord: 'Dog', plWord: 'Pies' },
     ];
     dispatch(downloadData(exampleWords));
     dispatch(updateWordToTranslate(getNewWord(exampleWords)));

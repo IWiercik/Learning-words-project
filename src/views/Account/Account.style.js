@@ -7,10 +7,6 @@ export const AccountInformationWrapper = styled.div`
     color: ${({ theme }) => theme.colors.blue};
   }
 `;
-export const EmailVerified = styled.h3``;
 export const SetName = styled.text`
-  cursor: pointer;
-`;
-export const VerifyEmail = styled.text`
   cursor: pointer;
 `;

@@ -5,12 +5,10 @@ import {
   signInWithEmailAndPassword,
   getAuth,
   sendPasswordResetEmail,
-  sendEmailVerification,
   updateProfile,
   signInAnonymously,
 } from '@firebase/auth';
-import { getFirestore } from 'firebase/firestore';
-import { doc, getDoc, updateDoc, setDoc, onSnapshot, deleteField, deleteDoc } from '@firebase/firestore';
+import { doc, getDoc, updateDoc, setDoc, onSnapshot, deleteField, deleteDoc, getFirestore } from '@firebase/firestore';
 import {
   alertForAddingWordsToDataBase,
   alertForSuccessfulLogin,
@@ -18,9 +16,7 @@ import {
   alertForFailedRegistration,
   alertForSuccessfulPasswordReset,
   alertForFailedPasswordReset,
-  AlertForSendingVerification,
   alertForSuccessfulProfileNameUpdate,
-  notificationForNeedingAccount,
 } from 'helpers/sweetAlert';
 
 const app = initializeApp(firebaseConfig);
@@ -64,16 +60,6 @@ export const sendingEmailWithNewPassword = (email) => {
       const apiError = error.code.substring(5, error.code.length);
       alertForFailedPasswordReset(apiError, error.message);
       // ..
-    });
-};
-export const sendingEmailWithVerification = (user) => {
-  sendEmailVerification(user)
-    .then(() => {
-      AlertForSendingVerification();
-    })
-    .catch((error) => {
-      console.clear();
-      notificationForNeedingAccount();
     });
 };
 export const updateProfileName = (user, newName) => {

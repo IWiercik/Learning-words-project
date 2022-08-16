@@ -1,8 +1,7 @@
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import 'helpers/sweetAlert.css';
-import { editData } from 'configFirebase/firebase';
-import { sendingEmailWithNewPassword, updateProfileName } from 'configFirebase/firebase';
+import { sendingEmailWithNewPassword, updateProfileName, editData } from 'configFirebase/firebase';
 import parse from 'html-react-parser';
 
 const MySwal = withReactContent(Swal);
@@ -77,18 +76,6 @@ export const alertForEditingWords = (engWord, plWord, id, user) => {
         title: 'Updated!',
       });
     });
-  });
-};
-export const alertForVerifingEmail = () => {
-  MySwal.fire({
-    title: 'Your account is not verified',
-    text: 'If you want to have more words you need to first verify your account with email.',
-  });
-};
-export const AlertForSendingVerification = () => {
-  MySwal.fire({
-    icon: 'success',
-    title: 'Email sent check your email',
   });
 };
 export const alertForConfirmDeletingData = (deleteData, deleteReduxData, user) => {

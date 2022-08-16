@@ -6,12 +6,7 @@ import { Button } from 'components/atoms/Button/Button.style';
 import { AddData } from 'configFirebase/firebase';
 import { appContext } from 'providers/Providers';
 import { useState } from 'react';
-import {
-  alertForEmptyInput,
-  alertForVerifingEmail,
-  alertForAddingWordsToDataBase,
-  notificationForNeedingAccount,
-} from 'helpers/sweetAlert';
+import { alertForEmptyInput, alertForAddingWordsToDataBase, notificationForNeedingAccount } from 'helpers/sweetAlert';
 import { BasicContainer } from 'components/molecules/BasicContainer/BasicContainer.style';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
@@ -49,18 +44,9 @@ const TypingMode = () => {
               } else {
                 const userEmail = ctx.currentUser.email;
                 const userHasEmail = ctx.currentUser.email ? true : false;
-                const userIsVerified = ctx.currentUser.emailVerified;
                 if (userHasEmail) {
                   //User signed with Email
-                  if (userIsVerified) {
-                    AddData(userEmail, { engWord: words.engWord, plWord: words.plWord }, wordsUsedIds);
-                  } else {
-                    if (data.length >= 10) {
-                      alertForVerifingEmail();
-                    } else {
-                      AddData(userEmail, { engWord: words.engWord, plWord: words.plWord }, wordsUsedIds);
-                    }
-                  }
+                  AddData(userEmail, { engWord: words.engWord, plWord: words.plWord }, wordsUsedIds);
                 } else {
                   //Anonymous User
                   if (data.length >= 10) {
