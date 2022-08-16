@@ -68,3 +68,8 @@
 .reset-password:hover {
     font-size: 25px;
 }
+
+.blue-bold {
+    color: #008eca;
+    font-weight: bold;
+}

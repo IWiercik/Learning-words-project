@@ -155,7 +155,7 @@ export const alertForFailedLogin = (error, message) => {
       explainMessage = 'Check your email or create account.';
       break;
     case 'user-not-found':
-      explainMessage = `There is no user with this email.<br>You need to create account.`;
+      explainMessage = `There is <span class="blue-bold">no user</span> with this email.<br>You need to <span class="blue-bold">create account</span>.`;
       break;
     case 'wrong-password':
       explainMessage = `This password is incorrect.<br>If you want to reset password click:<br>`;
@@ -243,14 +243,18 @@ export const alertForSuccessfulPasswordReset = () => {
   });
 };
 export const alertForFailedPasswordReset = (error, message) => {
+  console.log(error);
   let explainMessage;
   let resetPasswordAvailable;
   switch (error) {
     case 'invalid-email':
-      explainMessage = 'Check your email or create account.';
+      explainMessage = 'Check correctness of your email or create account.';
       break;
     case 'user-not-found':
-      explainMessage = `There is no user with this email.<br>You need to create account.`;
+      explainMessage = `There is <span class="blue-bold">no user</span> with this email.<br>You need to <span class="blue-bold">create account</span>.`;
+      break;
+    case 'missing-email':
+      explainMessage = 'You need to pass your email';
       break;
     default:
       explainMessage = message;

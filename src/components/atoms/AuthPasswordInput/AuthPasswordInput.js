@@ -10,7 +10,7 @@ function AuthPasswordInput({ value, onChange, isValid }) {
   return (
     <div>
       <TogglePasswordVisibility
-        src={passwordVisibility ? passwordShowed : passwordHidden}
+        src={passwordVisibility ? passwordHidden : passwordShowed}
         onClick={() => {
           setPasswordVisibility(!passwordVisibility);
         }}
